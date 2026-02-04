@@ -33,17 +33,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Scroll reveal animation
+// Scroll reveal animation - Optimized
 const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -30px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Stop observing after animation
         }
     });
 }, observerOptions);
@@ -65,11 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .footer-col
     `);
 
-    elementsToAnimate.forEach((el, index) => {
-        // Set initial state
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
+    elementsToAnimate.forEach((el) => {
+        // Add class for CSS animation
+        el.classList.add('animate-on-scroll');
 
         // Observe element
         observer.observe(el);
