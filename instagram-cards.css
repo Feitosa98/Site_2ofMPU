@@ -30,21 +30,32 @@
     right: 0;
     bottom: 0;
     background:
-        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%),
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%),
+        radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
         linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    background-size: 200% 200%, 100% 100%;
-    animation: shimmer 3s infinite;
+    background-size: 200% 200%, 150% 150%, 100% 100%;
+    animation: shimmer 2s infinite, pulse-bg 3s infinite alternate;
 }
 
 @keyframes shimmer {
 
     0%,
     100% {
-        background-position: 0% 50%, 0% 0%;
+        background-position: 0% 50%, 0% 0%, 0% 0%;
     }
 
     50% {
-        background-position: 100% 50%, 0% 0%;
+        background-position: 100% 50%, 100% 100%, 0% 0%;
+    }
+}
+
+@keyframes pulse-bg {
+    0% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 1;
     }
 }
 
@@ -85,14 +96,14 @@
     }
 
     50% {
-        transform: scale(1.05);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 20px rgba(255, 255, 255, 0);
+        transform: scale(1.08);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 25px rgba(255, 255, 255, 0);
     }
 }
 
 .instagram-video-card:hover .play-pulse {
-    animation: pulse 1s infinite;
-    transform: scale(1.1);
+    animation: pulse 0.8s infinite;
+    transform: scale(1.15);
 }
 
 /* Instagram badge */
