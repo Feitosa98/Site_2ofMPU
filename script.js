@@ -55,6 +55,27 @@ document.querySelectorAll('.card, .section-title, .contact-container').forEach(e
     observer.observe(el);
 });
 
+// Video sound control on hover
+document.addEventListener('DOMContentLoaded', function () {
+    const videos = document.querySelectorAll('.instagram-video');
+
+    videos.forEach(video => {
+        // Mute by default
+        video.muted = true;
+
+        // Unmute on hover
+        video.addEventListener('mouseenter', function () {
+            this.muted = false;
+            this.volume = 0.7; // 70% volume
+        });
+
+        // Mute when mouse leaves
+        video.addEventListener('mouseleave', function () {
+            this.muted = true;
+        });
+    });
+});
+
 // Instagram Video Autoplay
 // Wait for Instagram embeds to load, then enable autoplay
 window.addEventListener('load', function () {
