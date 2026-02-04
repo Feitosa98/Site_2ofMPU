@@ -1,4 +1,66 @@
-/* Instagram Animated Video Cards */
+/* Instagram Video Cards with Real Videos */
+.video-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.instagram-video {
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 9/16;
+}
+
+/* Video overlay */
+.video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-card:hover .video-overlay {
+    opacity: 1;
+}
+
+.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #dc2743;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.instagram-link:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+.instagram-link i {
+    font-size: 1.2rem;
+}
+
 .instagram-video-card {
     display: block;
     text-decoration: none;
