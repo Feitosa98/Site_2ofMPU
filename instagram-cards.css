@@ -1,0 +1,219 @@
+/* Instagram Animated Video Cards */
+.instagram-video-card {
+    display: block;
+    text-decoration: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.instagram-video-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.video-preview {
+    position: relative;
+    aspect-ratio: 9/16;
+    max-height: 500px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+/* Animated background */
+.video-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%),
+        linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background-size: 200% 200%, 100% 100%;
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        background-position: 0% 50%, 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 50%, 0% 0%;
+    }
+}
+
+/* Play button overlay */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.play-pulse {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s infinite;
+    cursor: pointer;
+}
+
+.play-pulse i {
+    font-size: 2rem;
+    color: #dc2743;
+    margin-left: 5px;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 20px rgba(255, 255, 255, 0);
+    }
+}
+
+.instagram-video-card:hover .play-pulse {
+    animation: pulse 1s infinite;
+    transform: scale(1.1);
+}
+
+/* Instagram badge */
+.instagram-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+/* Video info */
+.video-info {
+    padding: 20px;
+    text-align: center;
+    background: white;
+}
+
+.video-info h4 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.video-info p {
+    color: #666;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.video-info i {
+    color: var(--secondary);
+}
+
+.instagram-card {
+    min-height: 400px;
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 40px;
+    text-align: center;
+    transition: var(--transition);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.instagram-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: var(--transition);
+}
+
+.instagram-card:hover::before {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.instagram-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.instagram-play {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.instagram-play .fa-instagram {
+    font-size: 5rem;
+    opacity: 0.3;
+}
+
+.instagram-play .fa-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    background: white;
+    color: #dc2743;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5px;
+    transition: var(--transition);
+}
+
+.instagram-card:hover .fa-play {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.instagram-card-info h4 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.instagram-card-info p {
+    color: white;
+    font-size: 1rem;
+    opacity: 0.9;
+}
