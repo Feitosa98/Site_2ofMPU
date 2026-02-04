@@ -63,6 +63,42 @@
     font-size: 1.2rem;
 }
 
+/* Sound Indicator */
+.sound-indicator {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.sound-indicator.active {
+    background: rgba(220, 39, 67, 0.9);
+    opacity: 1 !important;
+}
+
+.video-card:hover .sound-indicator {
+    opacity: 1;
+}
+
+.instagram-video {
+    cursor: pointer;
+}
+
+
 .instagram-video-card {
     display: block;
     text-decoration: none;

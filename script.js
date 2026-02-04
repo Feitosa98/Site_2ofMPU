@@ -55,23 +55,45 @@ document.querySelectorAll('.card, .section-title, .contact-container').forEach(e
     observer.observe(el);
 });
 
-// Video sound control on hover
+// Video sound control - Click to toggle
 document.addEventListener('DOMContentLoaded', function () {
     const videos = document.querySelectorAll('.instagram-video');
 
     videos.forEach(video => {
-        // Mute by default
+        // Ensure muted by default
         video.muted = true;
 
-        // Unmute on hover
-        video.addEventListener('mouseenter', function () {
-            this.muted = false;
-            this.volume = 0.7; // 70% volume
+        // Create sound indicator
+        const soundIcon = document.createElement('div');
+        soundIcon.className = 'sound-indicator';
+        soundIcon.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        video.parentElement.appendChild(soundIcon);
+
+        // Toggle sound on click
+        video.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (this.muted) {
+                this.muted = false;
+                this.volume = 0.7;
+                soundIcon.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+                soundIcon.classList.add('active');
+            } else {
+                this.muted = true;
+                soundIcon.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                soundIcon.classList.remove('active');
+            }
         });
 
-        // Mute when mouse leaves
-        video.addEventListener('mouseleave', function () {
-            this.muted = true;
+        // Show indicator on hover
+        video.parentElement.addEventListener('mouseenter', function () {
+            soundIcon.style.opacity = '1';
+        });
+
+        video.parentElement.addEventListener('mouseleave', function () {
+            if (video.muted) {
+                soundIcon.style.opacity = '0';
+            }
         });
     });
 });
