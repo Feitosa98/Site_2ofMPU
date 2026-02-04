@@ -33,9 +33,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Scroll Animation (Fade In)
+// Scroll reveal animation
 const observerOptions = {
-    threshold: 0.1
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -47,12 +48,32 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Add initial styles for animation to cards and sections
-document.querySelectorAll('.card, .section-title, .contact-container').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'all 0.6s ease-out';
-    observer.observe(el);
+// Add animation to all major elements
+document.addEventListener('DOMContentLoaded', function () {
+    // Select all elements to animate
+    const elementsToAnimate = document.querySelectorAll(`
+        .card,
+        .section-title,
+        .contact-container,
+        .info-cards > div,
+        .qa-item,
+        .team-wrapper,
+        .city-card,
+        .video-card,
+        .service-card,
+        .management-card,
+        .footer-col
+    `);
+
+    elementsToAnimate.forEach((el, index) => {
+        // Set initial state
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
+
+        // Observe element
+        observer.observe(el);
+    });
 });
 
 // Video sound control - Click to toggle
