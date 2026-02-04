@@ -252,7 +252,7 @@
             <div class="instagram-grid">
                 <!-- Vídeo 1 -->
                 <div class="video-card">
-                    <video autoplay muted loop playsinline class="instagram-video">
+                    <video autoplay muted loop playsinline class="instagram-video" loading="lazy" preload="none">
                         <source src="videos/video1.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -265,7 +265,7 @@
 
                 <!-- Vídeo 2 -->
                 <div class="video-card">
-                    <video autoplay muted loop playsinline class="instagram-video">
+                    <video autoplay muted loop playsinline class="instagram-video" loading="lazy" preload="none">
                         <source src="videos/video2.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -278,7 +278,7 @@
 
                 <!-- Vídeo 3 -->
                 <div class="video-card">
-                    <video autoplay muted loop playsinline class="instagram-video">
+                    <video autoplay muted loop playsinline class="instagram-video" loading="lazy" preload="none">
                         <source src="videos/video3.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -389,9 +389,10 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <!-- Instagram Embed Script -->
     <script async src="//www.instagram.com/embed.js"></script>
+
 </body>
 
 </html>
