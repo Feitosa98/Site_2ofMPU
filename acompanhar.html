@@ -12,74 +12,226 @@
     <link rel="icon" type="image/png" href="images/logo.png">
 
     <style>
+        body {
+            padding-top: 90px;
+            background: #f8fafc;
+        }
+
         .page-header {
-            background: linear-gradient(rgba(10, 26, 68, 0.9), rgba(10, 26, 68, 0.95));
-            padding: 80px 0 40px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            padding: 60px 0;
             text-align: center;
             color: white;
             margin-bottom: 50px;
         }
 
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
         .track-container {
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 700px;
+            margin: 0 auto 80px;
             background: white;
-            padding: 40px;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e1e5ee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .mt-3 {
+            margin-top: 20px;
+        }
+
+        #trackResult {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e1e5ee;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+
+        .mb-4 {
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e1e5ee 100%);
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .info-card p {
+            margin: 12px 0;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        .info-card strong {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-block;
+            min-width: 180px;
         }
 
         .status-timeline {
-            margin-top: 40px;
-            padding-left: 20px;
+            margin-top: 30px;
+            padding-left: 30px;
             border-left: 3px solid #e1e5ee;
         }
 
         .timeline-item {
             position: relative;
-            padding-bottom: 30px;
-            padding-left: 20px;
+            padding-bottom: 35px;
+            padding-left: 25px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -26px;
-            top: 0;
-            width: 15px;
-            height: 15px;
+            left: -36px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
-            background: #e1e5ee;
-            border: 3px solid white;
+            background: #cbd5e1;
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px #e1e5ee;
         }
 
         .timeline-item.active::before {
-            background: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.3);
+            background: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            width: 18px;
+            height: 18px;
+            left: -37px;
+        }
+
+        .timeline-item h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .text-muted {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .status-pendente {
-            background: #fff3cd;
-            color: #856404;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
         }
 
-        .status-andamento {
-            background: #cce5ff;
-            color: #004085;
+        .status-andamento,
+        .status-em_andamento {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
         }
 
         .status-concluido {
-            background: #d4edda;
-            color: #155724;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+
+        .protocol-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .protocol-number {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1e5ee;
         }
     </style>
 </head>
