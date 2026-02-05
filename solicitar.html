@@ -269,8 +269,41 @@
     <script src="script.js" defer></script>
     <script>
         // Simple Logic for Steps and Service Selection
+        // Simple Logic for Steps and Service Selection
         function nextStep(currentStep) {
-            // Add validation here
+            // Validação Etapa 1
+            if (currentStep === 1) {
+                const nome = document.querySelector('input[name="nome"]');
+                const cpf = document.querySelector('input[name="cpf"]');
+                const telefone = document.querySelector('input[name="telefone"]');
+                const email = document.querySelector('input[name="email"]');
+
+                let isValid = true;
+                let firstInvalid = null;
+
+                const validate = (field, minLen = 1) => {
+                    // Reset style
+                    field.style.borderColor = '#e1e5ee';
+
+                    if (!field.value || field.value.trim().length < minLen) {
+                        field.style.borderColor = 'red';
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = field;
+                    }
+                };
+
+                validate(nome, 5); // Nome completo
+                validate(cpf, 14); // CPF completo (com mascara)
+                validate(telefone, 14); // Telefone completo (com mascara)
+                validate(email, 5); // Email
+
+                if (!isValid) {
+                    alert('Por favor, preencha todos os campos obrigatórios corretamente.');
+                    if (firstInvalid) firstInvalid.focus();
+                    return;
+                }
+            }
+
             document.getElementById(`step${currentStep}`).style.display = 'none';
             document.getElementById(`step${currentStep + 1}`).style.display = 'block';
 
@@ -279,6 +312,28 @@
             document.querySelectorAll('.step')[currentStep - 1].classList.remove('active');
             document.querySelectorAll('.step')[currentStep].classList.add('active');
         }
+
+        // Validate on Submit
+        document.getElementById('solicitacaoForm').addEventListener('submit', function (e) {
+            const servico = document.getElementById('servico');
+            const observacoes = document.querySelector('textarea[name="observacoes"]');
+
+            if (!servico.value) {
+                e.preventDefault();
+                alert('Por favor, selecione um serviço.');
+                servico.style.borderColor = 'red';
+                servico.focus();
+                return;
+            }
+
+            if (!observacoes.value.trim()) {
+                e.preventDefault();
+                alert('Por favor, descreva os detalhes da solicitação nas observações.');
+                observacoes.style.borderColor = 'red';
+                observacoes.focus();
+                return;
+            }
+        });
 
         function prevStep(currentStep) {
             document.getElementById(`step${currentStep}`).style.display = 'none';
