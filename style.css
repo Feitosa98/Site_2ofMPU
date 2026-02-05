@@ -82,8 +82,8 @@ ul {
 
 /* Header */
 header {
-  background-color: var(--primary);
-  /* Blue header */
+  background-color: white;
+  /* Reverted to white */
   position: fixed;
   width: 100%;
   top: 0;
@@ -92,15 +92,14 @@ header {
   display: flex;
   align-items: center;
   transition: all 0.4s ease;
-  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
 }
 
 /* Scrolled state (handled by JS) */
 header.scrolled {
-  background-color: rgba(30, 58, 138, 0.95);
-  /* Semi-transparent blue */
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -119,8 +118,8 @@ nav {
 .logo img {
   height: 60px;
   transition: var(--transition);
-  mix-blend-mode: screen;
-  /* Hides BLACK background on dark header */
+  mix-blend-mode: normal;
+  /* Normal for transparent logo */
   display: block;
 }
 
@@ -131,9 +130,9 @@ nav {
 }
 
 .nav-links a {
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  /* White text */
+  font-weight: 600;
+  color: var(--text-dark);
+  /* Dark text */
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   letter-spacing: 0.5px;
@@ -724,7 +723,7 @@ footer {
   display: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: white;
+  color: var(--primary);
 }
 
 .btn-outline {
