@@ -155,6 +155,93 @@
     </div>
 
     <script src="script.js" defer></script>
+    <script>
+        document.getElementById('trackForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const resultDiv = document.getElementById('trackResult');
+
+            // Show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Consultando...';
+            resultDiv.style.display = 'none';
+
+            fetch('system/api/consultar_protocolo.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.sucesso) {
+                        displayResult(data.dados);
+                    } else {
+                        alert(data.erro || 'Erro ao consultar protocolo.');
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Consultar';
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao conectar com o servidor.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Consultar';
+                });
+        });
+
+        function displayResult(dados) {
+            const resultDiv = document.getElementById('trackResult');
+
+            // Status badge class
+            let statusClass = 'status-pendente';
+            let statusText = 'Pendente';
+
+            if (dados.status === 'em_andamento') {
+                statusClass = 'status-andamento';
+                statusText = 'Em Andamento';
+            } else if (dados.status === 'concluido') {
+                statusClass = 'status-concluido';
+                statusText = 'Concluído';
+            }
+
+            // Build timeline
+            let timelineHTML = '';
+            dados.historico.forEach((item, index) => {
+                const activeClass = index === 0 ? 'active' : '';
+                timelineHTML += `
+                    <div class="timeline-item ${activeClass}">
+                        <h4>${item.descricao}</h4>
+                        <p class="text-muted">${item.data_formatada}</p>
+                    </div>
+                `;
+            });
+
+            // Update result div
+            resultDiv.innerHTML = `
+                <h3 class="text-center mb-4">Protocolo: <span style="color: var(--secondary);">${dados.protocolo}</span></h3>
+                
+                <div class="text-center mb-4">
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                    <p><strong>Serviço:</strong> ${dados.servico}</p>
+                    <p><strong>Solicitante:</strong> ${dados.cliente_nome}</p>
+                    <p><strong>Data da Solicitação:</strong> ${dados.data_criacao}</p>
+                    ${dados.observacoes_cliente ? `<p><strong>Observações:</strong> ${dados.observacoes_cliente}</p>` : ''}
+                    ${dados.observacoes_internas ? `<p><strong>Informações Adicionais:</strong> ${dados.observacoes_internas}</p>` : ''}
+                </div>
+                
+                <h4 class="mb-3">Histórico de Movimentações</h4>
+                <div class="status-timeline">
+                    ${timelineHTML}
+                </div>
+            `;
+
+            resultDiv.style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>
