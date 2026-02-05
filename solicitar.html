@@ -486,7 +486,19 @@
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.json())
+                .then(response => {
+                    const contentType = response.headers.get('content-type');
+
+                    // Check if response is JSON
+                    if (contentType && contentType.includes('application/json')) {
+                        return response.json();
+                    } else {
+                        // If not JSON, return text and throw error
+                        return response.text().then(text => {
+                            throw new Error(text || 'Erro desconhecido do servidor');
+                        });
+                    }
+                })
                 .then(data => {
                     if (data.sucesso) {
                         // Redirect to success page with protocol and password
@@ -500,7 +512,18 @@
                 })
                 .catch(error => {
                     console.error('Erro:', error);
-                    showModal('Erro ao conectar com o servidor. Verifique sua conexão e tente novamente.');
+
+                    // Show user-friendly error message
+                    let errorMsg = error.message || 'Erro ao conectar com o servidor.';
+
+                    // Clean up common error messages
+                    if (errorMsg.includes('Failed to fetch')) {
+                        errorMsg = 'Não foi possível conectar ao servidor. Verifique sua conexão com a internet.';
+                    } else if (errorMsg.includes('NetworkError')) {
+                        errorMsg = 'Erro de rede. Verifique sua conexão e tente novamente.';
+                    }
+
+                    showModal(errorMsg);
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = 'Enviar Solicitação';
                 });
