@@ -136,6 +136,107 @@
             outline: none;
             box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
         }
+
+        /* Custom Modal for Validation */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .custom-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .modal-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .modal-message {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-btn:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -265,6 +366,18 @@
         </div>
     </div>
 
+    <!-- Custom Modal -->
+    <div class="custom-modal" id="validationModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fa-solid fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="modal-title">Atenção!</h3>
+            <p class="modal-message" id="modalMessage">Mensagem aqui</p>
+            <button class="modal-btn" onclick="closeModal()">Entendi</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -274,7 +387,23 @@
 
     <script src="script.js" defer></script>
     <script>
-        // Simple Logic for Steps and Service Selection
+        // Custom Modal Functions
+        function showModal(message) {
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('validationModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('validationModal').classList.remove('show');
+        }
+
+        // Close modal on background click
+        document.getElementById('validationModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
         // Simple Logic for Steps and Service Selection
         function nextStep(currentStep) {
             // Validação Etapa 1
@@ -304,7 +433,7 @@
                 validate(email, 5); // Email
 
                 if (!isValid) {
-                    alert('Por favor, preencha todos os campos obrigatórios corretamente.');
+                    showModal('Por favor, preencha todos os campos obrigatórios corretamente antes de prosseguir.');
                     if (firstInvalid) firstInvalid.focus();
                     return;
                 }
@@ -326,7 +455,7 @@
 
             if (!servico.value) {
                 e.preventDefault();
-                alert('Por favor, selecione um serviço.');
+                showModal('Por favor, selecione qual serviço você deseja solicitar.');
                 servico.style.borderColor = 'red';
                 servico.focus();
                 return;
@@ -334,7 +463,7 @@
 
             if (!observacoes.value.trim()) {
                 e.preventDefault();
-                alert('Por favor, descreva os detalhes da solicitação nas observações.');
+                showModal('Por favor, descreva os detalhes da sua solicitação nas observações.');
                 observacoes.style.borderColor = 'red';
                 observacoes.focus();
                 return;
