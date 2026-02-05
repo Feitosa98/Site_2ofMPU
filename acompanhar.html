@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhar Solicitação - Cartório 2º Ofício</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <style>
+        .page-header {
+            background: linear-gradient(rgba(10, 26, 68, 0.9), rgba(10, 26, 68, 0.95));
+            padding: 80px 0 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .track-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-timeline {
+            margin-top: 40px;
+            padding-left: 20px;
+            border-left: 3px solid #e1e5ee;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #e1e5ee;
+            border: 3px solid white;
+        }
+
+        .timeline-item.active::before {
+            background: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.3);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .status-pendente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-andamento {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-concluido {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container navbar-content">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.png" alt="Cartório 2º Ofício">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="solicitar.html" class="btn-primary">Nova Solicitação</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Acompanhar Pedido</h1>
+            <p>Consulte o status da sua solicitação usando o protocolo</p>
+        </div>
+    </div>
+
+    <div class="container" style="padding-bottom: 80px;">
+        <div class="track-container">
+            <form id="trackForm" action="system/api/consultar_protocolo.php" method="POST">
+                <div class="form-group">
+                    <label class="form-label">Número do Protocolo</label>
+                    <input type="text" class="form-control" name="protocolo" placeholder="Ex: CART2024..." required>
+                </div>
+                <!-- Senha removida para simplificar consulta rápida, pode ser readicionada para segurança -->
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">
+                    <i class="fa-solid fa-magnifying-glass"></i> Consultar
+                </button>
+            </form>
+
+            <!-- Resultado (Exemplo Visual) -->
+            <div id="trackResult"
+                style="display: none; margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px;">
+                <h3 class="text-center mb-4">Protocolo: <span style="color: var(--secondary-color);">CART20261542</span>
+                </h3>
+
+                <div class="text-center mb-4">
+                    <span class="status-badge status-andamento">Em Andamento</span>
+                </div>
+
+                <div class="status-timeline">
+                    <div class="timeline-item active">
+                        <h4>Em Análise Jurídica</h4>
+                        <p class="text-muted">04/02/2026 às 14:30</p>
+                        <p>Documentação está sendo analisada pelo setor responsável.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Solicitação Recebida</h4>
+                        <p class="text-muted">04/02/2026 às 09:15</p>
+                        <p>Recebemos sua solicitação e o pagamento foi confirmado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>

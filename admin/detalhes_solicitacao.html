@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Solicitação - Admin</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background: #f4f6f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-nav {
+            background: #1a2a47;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container-fluid {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .card-details {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .status-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-group label {
+            display: block;
+            color: #666;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .info-group strong {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .timeline {
+            border-left: 2px solid #eee;
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+        }
+
+        .action-bar {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div>
+            <a href="#" onclick="voltar()" class="text-white" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+        <div>Protocolo: <strong id="headerProtocolo">...</strong></div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="card-details">
+            <div class="d-flex justify-content-between align-items-center mb-4"
+                style="display: flex; justify-content: space-between;">
+                <h2>Detalhes da Solicitação</h2>
+                <span id="badgeStatus" class="status-badge">Carregando...</span>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-group">
+                    <label>Cliente</label>
+                    <strong id="clienteNome">-</strong>
+                </div>
+                <div class="info-group">
+                    <label>CPF</label>
+                    <strong id="clienteCpf">-</strong>
+                </div>
+                <div class="info-group">
+                    <label>Contato</label>
+                    <strong id="clienteContato">-</strong>
+                </div>
+                <div class="info-group">
+                    <label>Serviço Solicitado</label>
+                    <strong id="servicoNome">-</strong> (ID: <span id="servicoId">-</span>)
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+            <div class="mb-4">
+                <h4>Observações do Cliente</h4>
+                <p id="obsCliente" style="background: #f9f9f9; padding: 15px; border-radius: 5px;">-</p>
+            </div>
+
+            <div class="mb-4">
+                <h4>Histórico de Movimentações</h4>
+                <div class="timeline" id="timelineList">
+                    <!-- JS Preenche -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="action-bar">
+            <strong>Ações:</strong>
+            <select id="novoStatus" class="form-control" style="padding: 8px;">
+                <option value="">Alterar Status...</option>
+                <option value="analise">Em Análise</option>
+                <option value="em_andamento">Em Andamento</option>
+                <option value="aguardando_pagamento">Aguardando Pagamento</option>
+                <option value="concluido">Concluído</option>
+                <option value="cancelado">Cancelado</option>
+            </select>
+            <input type="text" id="obsInterna" placeholder="Observação interna (opcional)"
+                style="flex-grow: 1; padding: 8px;">
+            <button onclick="atualizarStatus()" class="btn-primary"
+                style="padding: 8px 20px; background: var(--secondary-color); color: white; border: none; border-radius: 5px; cursor: pointer;">Salvar</button>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        let force = urlParams.get('force') === 'true';
+
+        async function carregarDetalhes() {
+            if (!id) { alert('ID inválido'); window.location.href = 'dashboard.html'; return; }
+
+            // Construir URL
+            let url = `../system/api/detalhes_solicitacao.php?id=${id}`;
+            if (force) url += '&force=true';
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Tratamento de Erros e Bloqueios
+                if (!data.sucesso) {
+                    if (data.erro === 'bloqueado') {
+                        alert(`❌ ACESSO NEGADO\n\nEste protocolo está sendo editado por: ${data.bloqueado_por}.\n\nTente novamente mais tarde.`);
+                        window.location.href = 'dashboard.html';
+                        return;
+                    }
+                    if (data.erro === 'aviso_bloqueio') {
+                        const confirmar = confirm(`🔒 ATENÇÃO DE SEGURANÇA\n\n${data.mensagem}\n\nDeseja assumir a edição forçadamente?`);
+                        if (confirmar) {
+                            window.location.href = `detalhes_solicitacao.html?id=${id}&force=true`;
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                        return;
+                    }
+                    alert('Erro: ' + data.erro);
+                    return;
+                }
+
+                const s = data.solicitacao;
+
+                // Preencher Campos
+                document.getElementById('headerProtocolo').innerText = s.protocolo;
+                document.getElementById('clienteNome').innerText = s.cliente_nome;
+                document.getElementById('clienteCpf').innerText = s.cliente_cpf;
+                document.getElementById('clienteContato').innerText = s.cliente_telefone + ' / ' + s.cliente_email;
+                document.getElementById('servicoId').innerText = s.servico_id;
+                document.getElementById('obsCliente').innerText = s.observacoes_cliente || 'Nenhuma observação.';
+
+                // Status Badge
+                const badge = document.getElementById('badgeStatus');
+                badge.innerText = s.status.toUpperCase().replace('_', ' ');
+                badge.className = 'status-badge ' + getStatusColor(s.status);
+
+                // Histórico
+                const timeline = document.getElementById('timelineList');
+                timeline.innerHTML = '';
+                data.historico.forEach(h => {
+                    const item = `
+                        <div class="timeline-item">
+                            <strong>${h.usuario_nome || 'Sistema'}</strong> - <small>${new Date(h.data_movimentacao).toLocaleString()}</small><br>
+                            ${h.descricao}
+                        </div>
+                    `;
+                    timeline.innerHTML += item;
+                });
+
+            } catch (error) {
+                console.error(error);
+                alert('Erro de conexão');
+            }
+        }
+
+        async function atualizarStatus() {
+            const novoStatus = document.getElementById('novoStatus').value;
+            const obs = document.getElementById('obsInterna').value;
+
+            if (!novoStatus) return alert('Selecione um status!');
+
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('status', novoStatus);
+            formData.append('observacao', obs);
+
+            try {
+                const res = await fetch('../system/api/atualizar_status.php', { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.sucesso) {
+                    alert('Status atualizado!');
+                    location.reload();
+                } else {
+                    alert('Erro: ' + data.erro);
+                }
+            } catch (e) { alert('Erro ao salvar'); }
+        }
+
+        async function voltar() {
+            // Desbloquear antes de sair
+            if (id) {
+                navigator.sendBeacon('../system/api/desbloquear_protocolo.php', new URLSearchParams({ id: id }));
+            }
+            window.location.href = 'dashboard.html';
+        }
+
+        function getStatusColor(status) {
+            if (status === 'pendente') return 'bg-warning'; // Adapte cores css
+            if (status === 'concluido') return 'bg-success';
+            return 'bg-info';
+        }
+
+        // Bloqueio ao fechar aba
+        window.addEventListener('beforeunload', function () {
+            if (id) {
+                navigator.sendBeacon('../system/api/desbloquear_protocolo.php', new URLSearchParams({ id: id }));
+            }
+        });
+
+        carregarDetalhes();
+    </script>
+
+    <style>
+        .bg-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .bg-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .bg-info {
+            background: #cce5ff;
+            color: #004085;
+        }
+    </style>
+</body>
+
+</html>
