@@ -273,7 +273,16 @@
                     <label class="form-label">Número do Protocolo</label>
                     <input type="text" class="form-control" name="protocolo" placeholder="Ex: CART2024..." required>
                 </div>
-                <!-- Senha removida para simplificar consulta rápida, pode ser readicionada para segurança -->
+
+                <div class="form-group">
+                    <label class="form-label">Senha de Acesso <span
+                            style="color: #64748b; font-weight: 400; font-size: 0.9rem;">(Opcional - para maior
+                            segurança)</span></label>
+                    <input type="password" class="form-control" name="senha" placeholder="Digite a senha de 6 dígitos">
+                    <small style="color: #64748b; font-size: 0.85rem; margin-top: 5px; display: block;">
+                        <i class="fa-solid fa-info-circle"></i> A senha foi fornecida quando você criou a solicitação
+                    </small>
+                </div>
 
                 <button type="submit" class="btn btn-primary w-100 mt-3">
                     <i class="fa-solid fa-magnifying-glass"></i> Consultar
