@@ -118,6 +118,9 @@ nav {
 .logo img {
   height: 60px;
   transition: var(--transition);
+  mix-blend-mode: multiply;
+  /* Makes white background transparent */
+  display: block;
 }
 
 .nav-links {
