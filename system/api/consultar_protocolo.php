@@ -50,14 +50,14 @@ try {
     // Buscar histórico de movimentações
     $sqlHist = "SELECT * FROM historico_movimentacoes 
                 WHERE solicitacao_id = ? 
-                ORDER BY data_hora DESC";
+                ORDER BY data_movimentacao DESC";
     $stmtHist = $conn->prepare($sqlHist);
     $stmtHist->execute([$solicitacao['id']]);
     $historico = $stmtHist->fetchAll(PDO::FETCH_ASSOC);
 
     // Formatar datas do histórico
     foreach ($historico as &$item) {
-        $data = new DateTime($item['data_hora']);
+        $data = new DateTime($item['data_movimentacao']);
         $item['data_formatada'] = $data->format('d/m/Y \à\s H:i');
     }
 
@@ -69,7 +69,7 @@ try {
             'status' => $solicitacao['status'],
             'servico' => $solicitacao['servico_nome'],
             'cliente_nome' => $solicitacao['cliente_nome'],
-            'data_criacao' => (new DateTime($solicitacao['data_criacao']))->format('d/m/Y \à\s H:i'),
+            'data_criacao' => (new DateTime($solicitacao['criado_em']))->format('d/m/Y \à\s H:i'),
             'observacoes_cliente' => $solicitacao['observacoes_cliente'],
             'observacoes_internas' => $solicitacao['observacoes_internas'],
             'historico' => $historico
