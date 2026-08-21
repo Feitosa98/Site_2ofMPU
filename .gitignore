@@ -1,0 +1,18 @@
+# Credenciais e configuração privada
+system/config.php
+.env
+.env.*
+*.env
+
+# Backups e pacotes de produção
+backups/
+public_html/
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Arquivos locais/runtime
+*.log
+.DS_Store
+Thumbs.db
