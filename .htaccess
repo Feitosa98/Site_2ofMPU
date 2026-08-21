@@ -1,0 +1,15 @@
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Mantém arquivos e diretórios reais intactos.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Permite URLs limpas: /imoveis -> /imoveis.php,
+    # /rtdpj -> /rtdpj.php, /rcpn -> /rcpn.php e demais PHP existentes.
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
+</IfModule>
