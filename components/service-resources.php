@@ -578,9 +578,9 @@ function renderDocumentDownloads(array $groups): void
     <section class="resource-section resource-panel" aria-labelledby="document-downloads-title">
         <div class="resource-heading">
             <div>
-                <span class="resource-kicker">Orientações por serviço</span>
-                <h2 id="document-downloads-title">Documentos necessários</h2>
-                <p>Baixe o modelo de requerimento ou checklist correspondente ao seu caso. Os arquivos estão disponíveis para download imediato.</p>
+                <span class="resource-kicker">Orientações e Checklists</span>
+                <h2 id="document-downloads-title">Relação de Documentos e Checklists por Serviço</h2>
+                <p>Consulte a relação de documentos e baixe o modelo de requerimento ou checklist correspondente ao seu caso. Os arquivos estão disponíveis para download imediato em PDF e DOCX.</p>
             </div>
         </div>
         <?php foreach ($groups as $groupTitle => $documents): ?>

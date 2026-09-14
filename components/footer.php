@@ -29,8 +29,7 @@
                         <li><a href="rcpn">Registro Civil</a></li>
                         <li><a href="rtdpj">Pessoas Jurídicas</a></li>
                         <li><a href="rtdpj">Títulos e Documentos</a></li>
-                        <li><a href="certidoes">Certidões e Documentos</a></li>
-                        <li><a href="acompanhar">Acompanhar Protocolo</a></li>
+                        <li><a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer">Solicitar Certidão (ONR)</a></li>
                     </ul>
                 </div>
             </div>

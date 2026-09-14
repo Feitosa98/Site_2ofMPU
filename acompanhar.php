@@ -1,4 +1,8 @@
 <?php
+// Função de consulta de protocolo desativada conforme determinação da serventia.
+header("Location: /", true, 301);
+exit;
+
 $page_title = "Acompanhar Solicitação - Cartório 2º Ofício de Manacapuru";
 $page_desc = "Consulte o status em tempo real da sua solicitação no Cartório 2º Ofício de Manacapuru utilizando o protocolo e a senha.";
 $is_home = false;

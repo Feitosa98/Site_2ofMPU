@@ -62,26 +62,26 @@ $rcpnDocuments = [
             <article class="gratuidade-card gratuidade-card-free">
                 <div class="gratuidade-heading">
                     <span class="gratuidade-icon"><i class="fa-solid fa-award"></i></span>
-                    <h3>Atos totalmente gratuitos</h3>
+                    <h3>Gratuidade Universal por Lei Federal</h3>
                 </div>
-                <p>Independentemente da condição financeira, não há custo para:</p>
+                <p>Por determinação da <strong>Lei Federal nº 9.534/1997</strong>, são <strong>inteiramente gratuitos para todos os cidadãos</strong>, sem qualquer custo ou necessidade de comprovação de renda:</p>
                 <ul>
-                    <li>Registro de nascimento e primeira certidão</li>
-                    <li>Registro de óbito e primeira certidão</li>
-                    <li>Reconhecimento de paternidade biológica e certidão respectiva</li>
+                    <li><strong>Registro de Nascimento</strong> e a respectiva <strong>primeira certidão</strong></li>
+                    <li><strong>Registro de Óbito</strong> e a respectiva <strong>primeira certidão</strong></li>
+                    <li>Reconhecimento voluntário de paternidade biológica e sua respectiva certidão</li>
                 </ul>
             </article>
             <article class="gratuidade-card gratuidade-card-exemptions">
                 <div class="gratuidade-heading">
                     <span class="gratuidade-icon"><i class="fa-solid fa-circle-info"></i></span>
-                    <h3>Isenções disponíveis</h3>
+                    <h3>Isenções para Pessoas Hipossuficientes</h3>
                 </div>
-                <p>Pessoas hipossuficientes podem obter gratuitamente:</p>
+                <p>Pessoas comprovadamente hipossuficientes têm direito gratuito a:</p>
                 <ul>
-                    <li>Certidões atualizadas de nascimento, casamento e óbito, mediante declaração</li>
+                    <li>Segundas vias de certidões (nascimento, casamento e óbito), mediante declaração de hipossuficiência</li>
+                    <li>Processamento de habilitação para casamento civil</li>
                     <li>Inclusão de etnia e alteração de nome indígena</li>
-                    <li>Alterações ordenadas por decisão judicial com gratuidade</li>
-                    <li>Demais atos necessários ao exercício da cidadania previstos em lei</li>
+                    <li>Atos ordenados por decisão judicial com assistência judiciária gratuita</li>
                 </ul>
             </article>
         </div>
@@ -91,13 +91,13 @@ $rcpnDocuments = [
     <?php renderRcpnFeesTable(); ?>
     <?php renderDocumentDownloads($rcpnDocuments); ?>
 
-    <section class="service-cta" aria-label="Solicitar serviço de Registro Civil">
+    <section class="service-cta" aria-label="Solicitar serviços de Registro Civil">
         <div>
             <span class="resource-kicker">Atendimento eletrônico</span>
-            <h2>Solicite pelo Meu Registro</h2>
-            <p>O pedido será realizado diretamente na plataforma nacional do Registro Civil.</p>
+            <h2>Solicitar Serviços Online</h2>
+            <p>Os serviços eletrônicos e certidões do Registro Civil das Pessoas Naturais são solicitados diretamente pela plataforma nacional oficial Meu Registro Civil (Arpen-Brasil).</p>
         </div>
-        <a href="https://registrocivil.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Acessar Meu Registro <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="https://www.registrocivil.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Solicitar Serviços no Meu Registro <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
     </section>
 </main>
 

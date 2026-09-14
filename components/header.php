@@ -76,8 +76,7 @@ $base_url = "https://registromanacapuru.com.br";
                     <li><a href="imoveis">Imóveis</a></li>
                     <li><a href="rcpn">Registro Civil</a></li>
                     <li><a href="rtdpj">RTD / PJ</a></li>
-                    <li><a href="certidoes">Certidões</a></li>
-                    <li><a href="acompanhar">Acompanhar</a></li>
+                    <li><a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer">Solicitar Certidão</a></li>
                     <li><a href="/#contato" class="btn">Fale Conosco</a></li>
                 <?php endif; ?>
                 </ul>

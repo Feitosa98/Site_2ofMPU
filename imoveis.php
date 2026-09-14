@@ -65,13 +65,13 @@ $riDocuments = [
     <?php renderRiFixedActs(); ?>
     <?php renderDocumentDownloads($riDocuments); ?>
 
-    <section class="service-cta" aria-label="Solicitar serviço de Registro de Imóveis">
+    <section class="service-cta" aria-label="Solicitar serviços de Registro de Imóveis">
         <div>
             <span class="resource-kicker">Atendimento eletrônico</span>
-            <h2>Solicite pelo RI Digital</h2>
-            <p>O pedido será realizado diretamente na plataforma nacional do ONR.</p>
+            <h2>Solicitar Serviços Online</h2>
+            <p>Os serviços eletrônicos de Registro de Imóveis são solicitados diretamente pela plataforma nacional do ONR (Operador Nacional do Registro de Imóveis Eletrônico).</p>
         </div>
-        <a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Acessar RI Digital <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Solicitar Serviços no ONR <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
     </section>
 </main>
 

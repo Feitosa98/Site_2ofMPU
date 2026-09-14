@@ -35,16 +35,16 @@ $rtdpjDocuments = [
         <div class="service-overview-copy">
             <span class="resource-kicker">Conheça as especialidades</span>
             <h2 id="sobre-rtdpj">Sobre o RTD e o RCPJ</h2>
-            <p>O RTD garante autenticidade, conservação e publicidade a contratos e documentos pessoais. O RCPJ formaliza e registra sociedades simples, associações, fundações e organizações religiosas.</p>
+            <p>O RTD garante autenticidade, conservação e eficácia jurídica a contratos e documentos pessoais em geral (como notificações extrajudiciais e declarações). O RCPJ é competente para registrar os atos constitutivos e alterações de pessoas jurídicas de natureza <strong>não empresarial</strong> — tais como sociedades simples, associações civis, fundações e organizações religiosas.</p>
         </div>
         <div class="service-list-card">
             <h3>Principais serviços</h3>
             <ul class="service-list">
                 <li><i class="fa-solid fa-check"></i> Contratos, locações e parcerias</li>
                 <li><i class="fa-solid fa-check"></i> Notificações extrajudiciais</li>
-                <li><i class="fa-solid fa-check"></i> Atas e estatutos</li>
-                <li><i class="fa-solid fa-check"></i> Associações e fundações</li>
-                <li><i class="fa-solid fa-check"></i> Conservação de documentos</li>
+                <li><i class="fa-solid fa-check"></i> Estatutos e atas de associações</li>
+                <li><i class="fa-solid fa-check"></i> Sociedades simples e fundações</li>
+                <li><i class="fa-solid fa-check"></i> Conservação integral de documentos</li>
             </ul>
         </div>
     </section>
@@ -54,13 +54,13 @@ $rtdpjDocuments = [
     <?php renderRtdpjFixedActs(); ?>
     <?php renderDocumentDownloads($rtdpjDocuments); ?>
 
-    <section class="service-cta" aria-label="Solicitar serviço de RTD ou RCPJ">
+    <section class="service-cta" aria-label="Solicitar serviços de RTD ou RCPJ">
         <div>
             <span class="resource-kicker">Atendimento eletrônico</span>
-            <h2>Solicite pelo RTDPJ Brasil</h2>
-            <p>O pedido será realizado diretamente na plataforma nacional do RTDPJ.</p>
+            <h2>Solicitar Serviços Online</h2>
+            <p>Os serviços eletrônicos de Títulos e Documentos e Registro Civil de Pessoas Jurídicas são solicitados diretamente pela plataforma oficial RTDPJ Brasil / SERP.</p>
         </div>
-        <a href="https://serp.registros.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Acessar RTDPJ Brasil <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="https://serp.registros.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Solicitar Serviços no RTDPJ Brasil <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
     </section>
 </main>
 

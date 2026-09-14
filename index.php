@@ -44,7 +44,7 @@ include 'components/header.php';
     <!-- Barra de Acesso Rápido - Restaurada abaixo dos cards principais -->
     <div class="quick-access quick-access-spaced">
         <div class="container quick-access-container">
-            <a href="certidoes" class="qa-item qa-item-flex">
+            <a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer" class="qa-item qa-item-flex">
                 <i class="fa-solid fa-certificate"></i>
                 <span>Solicitar Certidão</span>
             </a>
@@ -80,8 +80,25 @@ include 'components/header.php';
         </div>
     </section>
 
+    <!-- Team Section -->
+    <section class="section-padding bg-light-theme">
+        <div class="container">
+            <div class="team-wrapper">
+                <div class="team-content">
+                    <h2 class="section-title-left text-white">Nossa Equipe <span class="dot">.</span></h2>
+                    <p class="text-light-theme">Profissionais qualificados e dedicados a oferecer o melhor atendimento, com eficiência e segurança jurídica para seus atos.</p>
+                    <a href="#contato" class="btn btn-outline btn-white">Fale Conosco</a>
+                </div>
+                <div class="team-image-container">
+                    <img src="images/equipe.jpg" alt="Equipe do Cartório 2º Ofício" class="team-img">
+                    <div class="team-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Missão, Visão e Valores -->
-    <section id="missao" class="section-padding bg-light-theme">
+    <section id="missao" class="section-padding bg-light-theme" style="padding-top: 20px;">
         <div class="container">
             <div class="text-center section-title">
                 <h2>Missão, Visão e Valores</h2>
@@ -112,23 +129,6 @@ include 'components/header.php';
                         <p class="valor-item"><strong>Valorização da Equipe:</strong> incentivo ao crescimento profissional e ao trabalho colaborativo.</p>
                         <p class="valor-item-last"><strong>Compromisso Social:</strong> contribuição para o desenvolvimento da comunidade e ampliação do acesso à cidadania.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="section-padding bg-light-theme">
-        <div class="container">
-            <div class="team-wrapper">
-                <div class="team-content">
-                    <h2 class="section-title-left text-white">Nossa Equipe <span class="dot">.</span></h2>
-                    <p class="text-light-theme">Profissionais qualificados e dedicados a oferecer o melhor atendimento, com eficiência e segurança jurídica para seus atos.</p>
-                    <a href="#contato" class="btn btn-outline btn-white">Fale Conosco</a>
-                </div>
-                <div class="team-image-container">
-                    <img src="images/equipe.jpg" alt="Equipe do Cartório 2º Ofício" class="team-img">
-                    <div class="team-overlay"></div>
                 </div>
             </div>
         </div>
