@@ -73,7 +73,8 @@ function renderEmolumentsSection(string $specialty): void
         <?php endif; ?>
         <?php if ($specialty === 'ri'): ?>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
-                <a href="#tabela-unificada-ri" class="btn-resource"><i class="fa-solid fa-table-list"></i> Consultar Tabela Unificada de Faixas (R$ 0,01 a R$ 50M)</a>
+                <a href="#tabela-unificada-ri" class="btn-resource"><i class="fa-solid fa-table-list"></i> Tabela Geral de Faixas (R$ 0,01 a R$ 50M)</a>
+                <a href="#atos-fixos-ri" class="btn-resource"><i class="fa-solid fa-list-check"></i> Demais Atos Fixos (Tabela 2025)</a>
             </div>
         <?php endif; ?>
         <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte a tabela correspondente à atribuição. Para atos de até R$ 1.055.700,00, aplica-se a Tabela de 2025; valores superiores utilizam o complemento de 2026.</p>
@@ -122,21 +123,6 @@ function renderRiUnifiedRanges(): void
         ['R$ 43.055.700,01 a R$ 46.055.700,00', 'R$ 41.749,09', 'R$ 2.087,45', 'R$ 4.174,91', 'R$ 6.262,36', 'R$ 20,00', 'R$ 10,00', 'R$ 54.303,81'],
         ['R$ 46.055.700,01 a R$ 49.055.700,00', 'R$ 43.749,09', 'R$ 2.187,45', 'R$ 4.374,91', 'R$ 6.562,36', 'R$ 20,00', 'R$ 10,00', 'R$ 56.903,81'],
         ['R$ 49.055.700,01 a R$ 50.000.000,00', 'R$ 45.749,09', 'R$ 2.287,45', 'R$ 4.574,91', 'R$ 6.862,36', 'R$ 20,00', 'R$ 10,00', 'R$ 59.503,81'],
-    ];
-
-    $fixedActs = [
-        ['Registro e Averbação sem valor declarado ou arbitrado', 'R$ 306,20', 'R$ 15,31', 'R$ 30,62', 'R$ 45,93', 'R$ 3,00', '—', 'R$ 401,06'],
-        ['Registro de loteamento rural (por gleba lote)', 'R$ 158,80', 'R$ 7,94', 'R$ 15,88', 'R$ 23,82', 'R$ 3,00', '—', 'R$ 209,44'],
-        ['Registro de loteamento urbano (por lote)', 'R$ 201,71', 'R$ 10,09', 'R$ 20,17', 'R$ 30,26', 'R$ 3,00', '—', 'R$ 265,23'],
-        ['Certidão negativa / positiva de propriedade ou de ônus', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
-        ['Certidão de cadeia sucessória', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
-        ['Certidão de inteiro teor (por folha)', 'R$ 95,55', 'R$ 4,78', 'R$ 9,56', 'R$ 14,33', 'R$ 3,00', '—', 'R$ 127,22'],
-        ['Convenção de condomínio (pela convenção)', 'R$ 950,00', 'R$ 47,50', 'R$ 95,00', 'R$ 142,50', 'R$ 4,00', '—', 'R$ 1.239,00'],
-        ['Convenção de condomínio (por cada unidade integrante)', 'R$ 200,71', 'R$ 10,04', 'R$ 20,07', 'R$ 30,11', 'R$ 3,00', '—', 'R$ 263,93'],
-        ['Constituição ou incorporação de condomínio (por unidade)', 'R$ 580,78', 'R$ 29,04', 'R$ 58,08', 'R$ 87,12', 'R$ 3,00', '—', 'R$ 758,02'],
-        ['Baixa de hipoteca, penhora, cédula, pacto comissório e outros', 'R$ 630,78', 'R$ 31,54', 'R$ 63,08', 'R$ 94,62', 'R$ 3,00', '—', 'R$ 823,02'],
-        ['Subdivisão e remembramento (por lote)', 'R$ 958,41', 'R$ 47,92', 'R$ 95,84', 'R$ 143,76', 'R$ 4,00', '—', 'R$ 1.249,93'],
-        ['Prenotação de títulos (a requerimento do interessado)', 'R$ 263,13', 'R$ 13,16', 'R$ 26,31', 'R$ 39,47', 'R$ 3,00', '—', 'R$ 345,07'],
     ];
     ?>
     <section class="resource-section resource-panel" id="tabela-unificada-ri" aria-labelledby="unified-ri-ranges-title">
@@ -193,40 +179,97 @@ function renderRiUnifiedRanges(): void
                 </tbody>
             </table>
         </div>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados com base na Tabela Oficial de 2025. Atos com valores superiores aplicam o escalonamento instituído pela Lei Estadual nº 8.212/2026.</p>
+    </section>
+    <?php
+}
 
-        <details class="checklist-card" style="margin-top: 18px;">
+function renderRiFixedActs(): void
+{
+    static $rendered = false;
+    if ($rendered) {
+        return;
+    }
+    $rendered = true;
+
+    $fixedActs = [
+        ['II - Registro e Averbação sem valor declarado ou arbitrado', 'R$ 306,20', 'R$ 15,31', 'R$ 30,62', 'R$ 45,93', 'R$ 3,00', '—', 'R$ 401,06'],
+        ['III - Registro de loteamento rural (por gleba lote)', 'R$ 158,80', 'R$ 7,94', 'R$ 15,88', 'R$ 23,82', 'R$ 3,00', '—', 'R$ 209,44'],
+        ['IV - Registro de loteamento urbano (por lote)', 'R$ 201,71', 'R$ 10,09', 'R$ 20,17', 'R$ 30,26', 'R$ 3,00', '—', 'R$ 265,23'],
+        ['V.a - Certidão negativa de propriedade por nome', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
+        ['V.b - Certidão positiva de propriedade (com negativa/positiva de ônus, por imóvel)', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
+        ['V.c - Certidão de cadeia sucessória (por imóvel ou negativa/positiva de ônus, por folha)', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
+        ['V.d - Certidão de outra natureza ou de inteiro teor (por folha)', 'R$ 95,55', 'R$ 4,78', 'R$ 9,56', 'R$ 14,33', 'R$ 3,00', '—', 'R$ 127,22'],
+        ['V.e - SIDOC - Sistema de Informação de Documentos (inclui manutenção R$ 51,85)', 'R$ 51,85', 'R$ 2,59', 'R$ 5,19', 'R$ 7,78', 'R$ 3,00', 'R$ 51,85', 'R$ 122,26'],
+        ['VI.a - Registro de convenção de condomínio (pela convenção)', 'R$ 950,00', 'R$ 47,50', 'R$ 95,00', 'R$ 142,50', 'R$ 4,00', '—', 'R$ 1.239,00'],
+        ['VI.b - Registro de convenção de condomínio (por unidade integrante do condomínio)', 'R$ 200,71', 'R$ 10,04', 'R$ 20,07', 'R$ 30,11', 'R$ 3,00', '—', 'R$ 263,93'],
+        ['VII - Constituição ou incorporação de condomínio (por unidade)', 'R$ 580,78', 'R$ 29,04', 'R$ 58,08', 'R$ 87,12', 'R$ 3,00', '—', 'R$ 758,02'],
+        ['VIII - Baixa: pacto comissório, hipoteca, penhora, cédula e outros', 'R$ 630,78', 'R$ 31,54', 'R$ 63,08', 'R$ 94,62', 'R$ 3,00', '—', 'R$ 823,02'],
+        ['IX - Subdivisão e remembramento (por lote)', 'R$ 958,41', 'R$ 47,92', 'R$ 95,84', 'R$ 143,76', 'R$ 4,00', '—', 'R$ 1.249,93'],
+        ['X - Prenotação de títulos (a requerimento do interessado para registro ou averbação)', 'R$ 263,13', 'R$ 13,16', 'R$ 26,31', 'R$ 39,47', 'R$ 3,00', '—', 'R$ 345,07'],
+        ['XI - Apostilamento de Haia', 'R$ 57,15', 'R$ 2,86', 'R$ 5,72', 'R$ 8,57', 'R$ 3,00', '—', 'R$ 77,30'],
+    ];
+
+    $notes = [
+        'Todos os atos dos ofícios notariais e de registro para habitação popular terão redução de metade das custas a pagar, desde a aquisição do terreno até a averbação ou registro da habitação construída.',
+        'Para a fixação dos emolumentos será considerado o maior valor, conforme declarado no ato ou negócio jurídico, ou o valor de avaliação fiscal ou judicial.',
+        'As custas dos Registros de Contrato ou documentos em que os valores venham expressos em moeda estrangeira deverão ser calculadas após conversão em moeda nacional em vigor.',
+        'As custas dos Registros de Contrato de Locação ou Arrendamento serão calculadas com base na soma total das mensalidades.',
+        'As custas dos Registros de Contratos em unidade monetária fora de circulação deverão ser corrigidas para valores vigentes.',
+        'Nos Registros de Títulos envolvendo negócios com mais de um imóvel, as custas serão cobradas tomando-se por base o valor maior de cada imóvel objeto do contrato.',
+        'Pelos serviços de computação será cobrado o valor de R$ 10,00, somente incidentes em atos de valor declarado.',
+        'Nas incorporações, averbações de construções e instituições de condomínio, com valores declarados, aplica-se o item I e demais valores do item VII da Tabela II.',
+        'Todos os serviços notariais e de registro do Estado do Amazonas recolhem 5% de ISS (Lei Municipal nº 714/03), especificado e apartado no importe de emolumentos.',
+    ];
+    ?>
+    <section class="resource-section resource-panel" id="atos-fixos-ri" aria-labelledby="atos-fixos-title">
+        <div class="resource-heading">
+            <div>
+                <span class="resource-kicker">Tabela Base Oficial</span>
+                <h2 id="atos-fixos-title">Demais Atos Fixos do Registro de Imóveis (Tabela Base 2025)</h2>
+                <p>Valores oficiais para averbações sem valor declarado, loteamentos, certidões, convenções de condomínio, baixas e demais atos fixos (Tabela II TJAM — Itens II a XI):</p>
+            </div>
+            <span class="specialty-badge">Atos Fixos 2025</span>
+        </div>
+        <div class="fees-table-wrap">
+            <table class="fees-table">
+                <thead>
+                    <tr>
+                        <th>Ato ou Serviço Registral</th>
+                        <th>Emolumento</th>
+                        <th>ISS (5%)</th>
+                        <th>FIG-RCPN</th>
+                        <th>Funjeam Extrajudicial</th>
+                        <th>Selo</th>
+                        <th>Computação / Extras</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($fixedActs as $act): ?>
+                        <tr>
+                            <?php foreach ($act as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <details class="checklist-card" style="margin-top: 22px;">
             <summary>
-                <span><i class="fa-solid fa-list-check"></i> Demais Atos Fixos do Registro de Imóveis (Tabela Base 2025)</span>
+                <span><i class="fa-solid fa-circle-info"></i> Notas Oficiais e Regras Gerais de Aplicação (TJAM)</span>
                 <i class="fa-solid fa-chevron-down checklist-arrow" aria-hidden="true"></i>
             </summary>
-            <div class="fees-table-wrap" style="margin-top: 10px;">
-                <table class="fees-table">
-                    <thead>
-                        <tr>
-                            <th>Ato Registral</th>
-                            <th>Emolumento</th>
-                            <th>ISS (5%)</th>
-                            <th>FIG-RCPN</th>
-                            <th>Funjeam</th>
-                            <th>Selo</th>
-                            <th>Computação</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($fixedActs as $act): ?>
-                            <tr>
-                                <?php foreach ($act as $cell): ?>
-                                    <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+            <ul style="margin-top: 8px;">
+                <?php foreach ($notes as $note): ?>
+                    <li><i class="fa-solid fa-check"></i> <?= htmlspecialchars($note, ENT_QUOTES, 'UTF-8') ?></li>
+                <?php endforeach; ?>
+            </ul>
         </details>
 
-        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados com base na Tabela Oficial de 2025. Atos com valores superiores aplicam o escalonamento instituído pela Lei Estadual nº 8.212/2026.</p>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Atos Fixos:</strong> Valores vigentes calculados em conformidade com a Lei Estadual nº 2.751/02, provimentos da CGJ-AM e legislação tributária municipal/estadual.</p>
     </section>
     <?php
 }
@@ -234,11 +277,13 @@ function renderRiUnifiedRanges(): void
 function renderRiBaseRanges(): void
 {
     renderRiUnifiedRanges();
+    renderRiFixedActs();
 }
 
 function renderRiHighValueRanges(): void
 {
     renderRiUnifiedRanges();
+    renderRiFixedActs();
 }
 
 function renderServiceChecklists(array $checklists): void
