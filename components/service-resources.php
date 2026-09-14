@@ -71,7 +71,117 @@ function renderEmolumentsSection(string $specialty): void
                 </a>
             </div>
         <?php endif; ?>
+        <?php if ($specialty === 'ri'): ?>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+                <a href="#tabela-base-2025" class="btn-resource"><i class="fa-solid fa-table"></i> Ver Tabela de Faixas 2025 (Até R$ 1,05M)</a>
+                <a href="#tabela-complementar-2026" class="btn-resource"><i class="fa-solid fa-table-list"></i> Ver Tabela Complementar 2026 (Acima de R$ 1,05M)</a>
+            </div>
+        <?php endif; ?>
         <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte a tabela correspondente à atribuição. Para atos de até R$ 1.055.700,00, aplica-se a Tabela de 2025; valores superiores utilizam o complemento de 2026.</p>
+    </section>
+    <?php
+}
+
+function renderRiBaseRanges(): void
+{
+    $rows = [
+        ['R$ 0,01 a R$ 17.595,00', 'R$ 486,20', 'R$ 24,31', 'R$ 48,62', 'R$ 72,93', 'R$ 4,00', 'R$ 10,00', 'R$ 646,06'],
+        ['R$ 17.595,01 a R$ 35.190,00', 'R$ 749,41', 'R$ 37,47', 'R$ 74,94', 'R$ 112,41', 'R$ 4,00', 'R$ 10,00', 'R$ 988,23'],
+        ['R$ 35.190,01 a R$ 58.650,00', 'R$ 931,10', 'R$ 46,55', 'R$ 93,11', 'R$ 139,66', 'R$ 4,00', 'R$ 10,00', 'R$ 1.224,42'],
+        ['R$ 58.650,01 a R$ 117.300,00', 'R$ 1.221,89', 'R$ 61,09', 'R$ 122,19', 'R$ 183,28', 'R$ 5,00', 'R$ 10,00', 'R$ 1.603,45'],
+        ['R$ 117.300,01 a R$ 234.600,00', 'R$ 2.138,41', 'R$ 106,92', 'R$ 213,84', 'R$ 320,76', 'R$ 5,00', 'R$ 10,00', 'R$ 2.794,93'],
+        ['R$ 234.600,01 a R$ 351.900,00', 'R$ 3.536,48', 'R$ 176,82', 'R$ 353,65', 'R$ 530,47', 'R$ 5,00', 'R$ 10,00', 'R$ 4.612,42'],
+        ['R$ 351.900,01 a R$ 469.200,00', 'R$ 5.510,24', 'R$ 275,51', 'R$ 551,02', 'R$ 826,54', 'R$ 10,00', 'R$ 10,00', 'R$ 7.183,31'],
+        ['R$ 469.200,01 a R$ 586.500,00', 'R$ 7.024,37', 'R$ 351,22', 'R$ 702,44', 'R$ 1.053,66', 'R$ 10,00', 'R$ 10,00', 'R$ 9.151,69'],
+        ['R$ 586.500,01 a R$ 703.800,00', 'R$ 8.619,17', 'R$ 430,96', 'R$ 861,92', 'R$ 1.292,88', 'R$ 10,00', 'R$ 10,00', 'R$ 11.224,93'],
+        ['R$ 703.800,01 a R$ 821.100,00', 'R$ 8.882,41', 'R$ 444,12', 'R$ 888,24', 'R$ 1.332,36', 'R$ 20,00', 'R$ 10,00', 'R$ 11.577,13'],
+        ['R$ 821.100,01 a R$ 938.400,00', 'R$ 9.972,57', 'R$ 498,63', 'R$ 997,26', 'R$ 1.495,89', 'R$ 20,00', 'R$ 10,00', 'R$ 12.994,35'],
+        ['R$ 938.400,01 a R$ 1.055.700,00', 'R$ 11.749,09', 'R$ 587,45', 'R$ 1.174,91', 'R$ 1.762,36', 'R$ 20,00', 'R$ 10,00', 'R$ 15.303,81'],
+    ];
+
+    $fixedActs = [
+        ['Registro e Averbação sem valor declarado ou arbitrado', 'R$ 306,20', 'R$ 15,31', 'R$ 30,62', 'R$ 45,93', 'R$ 3,00', '—', 'R$ 401,06'],
+        ['Registro de loteamento rural (por gleba lote)', 'R$ 158,80', 'R$ 7,94', 'R$ 15,88', 'R$ 23,82', 'R$ 3,00', '—', 'R$ 209,44'],
+        ['Registro de loteamento urbano (por lote)', 'R$ 201,71', 'R$ 10,09', 'R$ 20,17', 'R$ 30,26', 'R$ 3,00', '—', 'R$ 265,23'],
+        ['Certidão negativa / positiva de propriedade ou de ônus', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
+        ['Certidão de cadeia sucessória', 'R$ 53,63', 'R$ 2,68', 'R$ 5,36', 'R$ 8,04', 'R$ 2,00', '—', 'R$ 71,71'],
+        ['Certidão de inteiro teor (por folha)', 'R$ 95,55', 'R$ 4,78', 'R$ 9,56', 'R$ 14,33', 'R$ 3,00', '—', 'R$ 127,22'],
+        ['Convenção de condomínio (pela convenção)', 'R$ 950,00', 'R$ 47,50', 'R$ 95,00', 'R$ 142,50', 'R$ 4,00', '—', 'R$ 1.239,00'],
+        ['Convenção de condomínio (por cada unidade integrante)', 'R$ 200,71', 'R$ 10,04', 'R$ 20,07', 'R$ 30,11', 'R$ 3,00', '—', 'R$ 263,93'],
+        ['Constituição ou incorporação de condomínio (por unidade)', 'R$ 580,78', 'R$ 29,04', 'R$ 58,08', 'R$ 87,12', 'R$ 3,00', '—', 'R$ 758,02'],
+        ['Baixa de hipoteca, penhora, cédula, pacto comissório e outros', 'R$ 630,78', 'R$ 31,54', 'R$ 63,08', 'R$ 94,62', 'R$ 3,00', '—', 'R$ 823,02'],
+        ['Subdivisão e remembramento (por lote)', 'R$ 958,41', 'R$ 47,92', 'R$ 95,84', 'R$ 143,76', 'R$ 4,00', '—', 'R$ 1.249,93'],
+        ['Prenotação de títulos (a requerimento do interessado)', 'R$ 263,13', 'R$ 13,16', 'R$ 26,31', 'R$ 39,47', 'R$ 3,00', '—', 'R$ 345,07'],
+    ];
+    ?>
+    <section class="resource-section resource-panel" id="tabela-base-2025" aria-labelledby="base-ri-ranges-title">
+        <div class="resource-heading">
+            <div>
+                <span class="resource-kicker">Tabela Base Oficial</span>
+                <h2 id="base-ri-ranges-title">Tabela Base 2025 — Registro de Imóveis (Tabela II TJAM)</h2>
+                <p>Faixas de valores aplicáveis a registros e averbações com valor declarado de <strong>R$ 0,01 até R$ 1.055.700,00</strong>:</p>
+            </div>
+            <span class="specialty-badge">Tabela Base 2025</span>
+        </div>
+        <div class="fees-table-wrap">
+            <table class="fees-table">
+                <thead>
+                    <tr>
+                        <th>Faixa de valores do ato</th>
+                        <th>Emolumento</th>
+                        <th>ISS (5%)</th>
+                        <th>FIG-RCPN</th>
+                        <th>Funjeam Extrajudicial</th>
+                        <th>Selo</th>
+                        <th>Computação</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rows as $row): ?>
+                        <tr>
+                            <?php foreach ($row as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <details class="checklist-card" style="margin-top: 18px;">
+            <summary>
+                <span><i class="fa-solid fa-list-check"></i> Demais Atos Fixos do Registro de Imóveis (Tabela Base 2025)</span>
+                <i class="fa-solid fa-chevron-down checklist-arrow" aria-hidden="true"></i>
+            </summary>
+            <div class="fees-table-wrap" style="margin-top: 10px;">
+                <table class="fees-table">
+                    <thead>
+                        <tr>
+                            <th>Ato Registral</th>
+                            <th>Emolumento</th>
+                            <th>ISS (5%)</th>
+                            <th>FIG-RCPN</th>
+                            <th>Funjeam</th>
+                            <th>Selo</th>
+                            <th>Computação</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($fixedActs as $act): ?>
+                            <tr>
+                                <?php foreach ($act as $cell): ?>
+                                    <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Atos até R$ 1.055.700,00:</strong> Calculados por esta Tabela Base de 2025. Para atos que ultrapassem esse montante, consulte a <a href="#tabela-complementar-2026" style="color: var(--secondary); text-decoration: underline;">Tabela Complementar 2026</a> abaixo.</p>
     </section>
     <?php
 }
@@ -98,7 +208,7 @@ function renderRiHighValueRanges(): void
         ['R$ 49.055.700,01 a R$ 50.000.000,00', 'R$ 45.749,09', 'R$ 2.287,45', 'R$ 4.574,91', 'R$ 6.862,36', 'R$ 20,00', 'R$ 10,00', 'R$ 59.503,81'],
     ];
     ?>
-    <section class="resource-section resource-panel" aria-labelledby="new-ri-ranges-title">
+    <section class="resource-section resource-panel" id="tabela-complementar-2026" aria-labelledby="new-ri-ranges-title">
         <div class="resource-heading">
             <div>
                 <span class="resource-kicker">Complemento de 2026</span>

@@ -61,6 +61,7 @@ $riDocuments = [
     </section>
 
     <?php renderEmolumentsSection('ri'); ?>
+    <?php renderRiBaseRanges(); ?>
     <?php renderRiHighValueRanges(); ?>
     <?php renderDocumentDownloads($riDocuments); ?>
 
