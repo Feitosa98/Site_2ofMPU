@@ -44,7 +44,7 @@ include 'components/header.php';
     <!-- Barra de Acesso Rápido - Restaurada abaixo dos cards principais -->
     <div class="quick-access quick-access-spaced">
         <div class="container quick-access-container">
-            <a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer" class="qa-item qa-item-flex">
+            <a href="certidoes" class="qa-item qa-item-flex">
                 <i class="fa-solid fa-certificate"></i>
                 <span>Solicitar Certidão</span>
             </a>

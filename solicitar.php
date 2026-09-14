@@ -1,7 +1,7 @@
 <?php
-$page_title = "Solicitar Serviço - Cartório 2º Ofício de Manacapuru";
-$is_home = false;
-include 'components/header.php';
+// A emissão de certidões e serviços eletrônicos é realizada pelas centrais oficiais nacionais.
+header('Location: certidoes', true, 301);
+exit;
 ?>
 
     <div class="page-header service-page-header">

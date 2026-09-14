@@ -9,16 +9,16 @@ include 'components/header.php';
     <div class="container">
         <span class="page-eyebrow">Centrais Oficiais de Atendimento</span>
         <h1>Certidões e Documentos</h1>
-        <p>Solicite certidões eletrônicas com validade jurídica diretamente nas plataformas nacionais oficiais ou informe-se sobre os serviços do Cartório.</p>
+        <p>A emissão de certidões eletrônicas é realizada exclusivamente através das centrais nacionais oficiais instituídas pelo CNJ ou presencialmente no Cartório. Selecione abaixo a plataforma correspondente à sua necessidade.</p>
     </div>
 </section>
 
 <main class="container service-page">
     <section class="service-overview" aria-labelledby="sobre-certidoes">
         <div class="service-overview-copy">
-            <span class="resource-kicker">Atendimento digital</span>
+            <span class="resource-kicker">Atendimento digital regulamentado</span>
             <h2 id="sobre-certidoes">Emissão Oficial de Certidões</h2>
-            <p>O Cartório 2º Ofício de Manacapuru é integrado às centrais nacionais oficiais de serviços eletrônicos compartilhados, instituídas conforme normas do Conselho Nacional de Justiça (CNJ). Escolha abaixo a especialidade desejada para solicitar sua certidão com agilidade e segurança jurídica.</p>
+            <p>Em conformidade com as normas do Conselho Nacional de Justiça (CNJ), as certidões não são solicitadas diretamente por este site. O Cartório 2º Ofício de Manacapuru opera integrado às plataformas nacionais oficiais unificadas, garantindo validade jurídica plena em todo o território nacional. Escolha abaixo a especialidade desejada para acessar a respectiva central.</p>
         </div>
         <div class="service-list-card">
             <h3>Vantagens da certidão eletrônica</h3>
@@ -145,16 +145,16 @@ include 'components/header.php';
     <!-- Bloco CTA / Contato -->
     <section class="service-cta" aria-label="Dúvidas sobre certidões">
         <div>
-            <span class="resource-kicker">Precisa de auxílio ou outro serviço?</span>
+            <span class="resource-kicker">Precisa de auxílio ou orientação?</span>
             <h2>Fale Diretamente com Nossa Equipe</h2>
-            <p>Se preferir, solicite orientações sobre certidões específicas ou inicie seu atendimento online pelo nosso site.</p>
+            <p>Se tiver dúvidas sobre qual plataforma utilizar para o seu caso ou para orientações sobre pedidos presenciais, entre em contato via WhatsApp ou consulte nossos canais de atendimento.</p>
         </div>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             <a href="#" id="openWhatsappMenuBtn" class="btn-primary">
                 <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
             </a>
-            <a href="solicitar" class="btn-resource" style="padding: 12px 22px; border-radius: 50px; font-weight: 700;">
-                <i class="fa-solid fa-file-pen"></i> Solicitar pelo Site
+            <a href="/#contato" class="btn-resource" style="padding: 12px 22px; border-radius: 50px; font-weight: 700;">
+                <i class="fa-solid fa-phone"></i> Ver Telefones e Endereço
             </a>
         </div>
     </section>
