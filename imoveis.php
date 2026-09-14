@@ -1,9 +1,77 @@
 <?php
 $page_title = "Registro de Imóveis - Cartório 2º Ofício de Manacapuru";
 $is_home = false;
+require_once __DIR__ . '/components/service-resources.php';
 include 'components/header.php';
+
+$riDocuments = [
+    'Registro de Imóveis' => [
+        'Adjudicação Compulsória Extrajudicial' => 'documentos/Manacapuru/Adjudicação compulsória extrajudicial.pdf',
+        'Alteração de Dados do Imóvel' => 'documentos/Manacapuru/Alteração de dados do imóvel.pdf',
+        'Alteração de Estado Civil ou Complementação' => 'documentos/Manacapuru/Alteração de estado civil ou complementação.pdf',
+        'Averbações Genéricas' => 'documentos/Manacapuru/Averbações genéricas.pdf',
+        'Cancelamento de Garantias' => 'documentos/Manacapuru/Cancelamento de garantias.pdf',
+        'Certidões Diversas' => 'documentos/Manacapuru/Certidões.pdf',
+        'Construção e Demolição' => 'documentos/Manacapuru/Construção e demolição.pdf',
+        'Declaração SFH' => 'documentos/Manacapuru/Declaração SFH.pdf',
+        'União Estável - Declaração Negativa' => 'documentos/Manacapuru/Declaração união estável negativa.pdf',
+        'União Estável - Declaração Positiva' => 'documentos/Manacapuru/Declaração união estável positiva.pdf',
+        'Incorporação Imobiliária' => 'documentos/Manacapuru/Incorporação imobiliária.pdf',
+        'Integralização de Capital' => 'documentos/Manacapuru/Integralização de capital.pdf',
+        'Alienação Fiduciária: Intimação e Leilões' => 'documentos/Manacapuru/Intimação e leilões alienação fiduciária.pdf',
+        'Condomínio com Incorporação' => 'documentos/Manacapuru/Instituição de condomínio com incorporação.pdf',
+        'Condomínio sem Incorporação' => 'documentos/Manacapuru/Instituição de condomínio sem incorporação.pdf',
+        'Parcelamento do Solo Rural' => 'documentos/Manacapuru/Parcelamento do solo rural.pdf',
+        'Parcelamento do Solo Urbano' => 'documentos/Manacapuru/Parcelamento do solo urbano.pdf',
+        'Retificação de Medidas Perimetrais - PDF' => 'documentos/Manacapuru/Retificação de medidas perimetrais.pdf',
+        'Retificação de Medidas Perimetrais - DOCX' => 'documentos/Manacapuru/Retificação de medidas perimetrais.docx',
+        'Título Definitivo INCRA' => 'documentos/Manacapuru/Título definitivo INCRA.pdf',
+        'Transferência de Matrícula' => 'documentos/Manacapuru/Transferência de matrícula.pdf',
+        'Unificação ou Fusão' => 'documentos/Manacapuru/Unificação ou Fusão.pdf',
+        'Usucapião Extrajudicial' => 'documentos/Manacapuru/Usucapião Extrajudicial.pdf',
+    ],
+];
 ?>
-<div class="page-header"><div class="container"><h1 style="color:white;margin-bottom:15px;">Registro de Imóveis</h1><p style="color:#cbd5e1;font-size:1.1rem;">Garantia de segurança e publicidade dos atos imobiliários</p></div></div>
-<div class="container" style="padding-bottom:80px;"><div class="content-container"><h2>Sobre o Registro de Imóveis</h2><p>O Registro de Imóveis é o local onde ficam arquivados todos os históricos dos imóveis. Nele são registradas e averbadas todas as alterações e transações que afetam um bem imóvel, garantindo publicidade, segurança e eficácia aos direitos reais imobiliários.</p><br><h2>Principais Serviços</h2><ul><li><i class="fa-solid fa-check"></i> Registro de Escrituras de Compra e Venda</li><li><i class="fa-solid fa-check"></i> Averbação de Construção ou Demolição</li><li><i class="fa-solid fa-check"></i> Emissão de Certidões de Matrícula (Ônus e Ações)</li><li><i class="fa-solid fa-check"></i> Registro de Loteamentos e Incorporações</li><li><i class="fa-solid fa-check"></i> Registro de Hipotecas e Alienação Fiduciária</li></ul><br><h2>Tabela de Custas e Emolumentos</h2><p>A Tabela II vigente passou a contemplar novas faixas de valor. Os valores abaixo correspondem aos emolumentos-base; fundos, selo e ISS seguem a incidência aplicável.</p><div class="cost-table-wrap"><table class="cost-table"><thead><tr><th>Faixa de valor do ato</th><th>Emolumento-base</th></tr></thead><tbody><tr><td>R$ 0,01 a R$ 17.595,00</td><td>R$ 160,23</td></tr><tr><td>R$ 17.595,01 a R$ 35.190,00</td><td>R$ 480,68</td></tr><tr><td>R$ 35.190,01 a R$ 58.650,00</td><td>R$ 640,90</td></tr><tr><td>R$ 58.650,01 a R$ 117.300,00</td><td>R$ 801,13</td></tr><tr><td>R$ 117.300,01 a R$ 234.600,00</td><td>R$ 1.121,58</td></tr><tr><td>R$ 234.600,01 a R$ 351.900,00</td><td>R$ 2.803,94</td></tr><tr><td>R$ 351.900,01 a R$ 469.200,00</td><td>R$ 3.925,51</td></tr><tr><td>R$ 469.200,01 a R$ 586.500,00</td><td>R$ 5.047,09</td></tr><tr><td>R$ 586.500,01 a R$ 703.800,00</td><td>R$ 6.168,66</td></tr><tr><td>R$ 703.800,01 a R$ 821.100,00</td><td>R$ 7.290,25</td></tr><tr><td>R$ 821.100,01 a R$ 938.400,00</td><td>R$ 7.851,03</td></tr><tr><td>R$ 938.400,01 a R$ 1.055.700,00</td><td>R$ 8.411,83</td></tr><tr><td>Acima de R$ 1.055.700,01</td><td>R$ 11.215,77</td></tr></tbody></table></div><div class="service-note"><strong>Atenção:</strong> confira a tabela oficial vigente antes do protocolo, pois o total do ato pode incluir parcelas adicionais previstas em lei.</div><a class="official-link" href="https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/7374-tabela-de-emolumentos-municipios-com-iss-na-aliquota-de-2/file" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-scale-balanced"></i> Conferir Tabela II oficial no TJAM</a><br><br><h2>Documentos Necessários (Downloads)</h2><p>Abaixo você encontra a relação de documentos exigidos para cada tipo de solicitação:</p><div class="doc-grid"><a href="documentos/Adjudicação compulsória extrajudicial.pdf" target="_blank" class="doc-link">Adjudicação compulsória extrajudicial</a><a href="documentos/Alteração de dados do imóvel.pdf" target="_blank" class="doc-link">Alteração de dados do imóvel</a><a href="documentos/Alteração de estado civil ou complementação.pdf" target="_blank" class="doc-link">Alteração de estado civil</a><a href="documentos/Averbações genéricas.pdf" target="_blank" class="doc-link">Averbações genéricas</a><a href="documentos/Cancelamento de garantias.pdf" target="_blank" class="doc-link">Cancelamento de garantias</a><a href="documentos/Certidões.pdf" target="_blank" class="doc-link">Certidões diversas</a><a href="documentos/Construção e demolição.pdf" target="_blank" class="doc-link">Construção e demolição</a><a href="documentos/Incorporação imobiliária.pdf" target="_blank" class="doc-link">Incorporação imobiliária</a><a href="documentos/Integralização de capital.pdf" target="_blank" class="doc-link">Integralização de capital</a><a href="documentos/Parcelamento do solo urbano.pdf" target="_blank" class="doc-link">Parcelamento do solo urbano</a><a href="documentos/Parcelamento do solo rural.pdf" target="_blank" class="doc-link">Parcelamento do solo rural</a><a href="documentos/Retificação de medidas perimetrais.pdf" target="_blank" class="doc-link">Retificação de medidas</a><a href="documentos/Transferência de matrícula.pdf" target="_blank" class="doc-link">Transferência de matrícula</a><a href="documentos/Usucapião Extrajudicial.pdf" target="_blank" class="doc-link">Usucapião Extrajudicial</a></div><br><div style="text-align:center;margin-top:30px;"><a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Solicitar Serviço no RI Digital <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div></div>
-<style>.service-note{background:rgba(242,183,5,.08);border:1px solid rgba(242,183,5,.28);border-left:4px solid var(--secondary);padding:16px 18px;border-radius:10px;margin:18px 0 26px;color:#cbd5e1}.service-note strong{color:#fff}.cost-table-wrap{overflow-x:auto;margin:16px 0 28px;border:1px solid rgba(242,183,5,.2);border-radius:12px}.cost-table{width:100%;border-collapse:collapse;min-width:620px}.cost-table th,.cost-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}.cost-table th{background:rgba(242,183,5,.12);color:#fff}.cost-table td{color:#cbd5e1}.official-link{display:inline-flex;align-items:center;gap:8px;color:var(--secondary);text-decoration:underline;margin-top:8px}.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:15px;margin-top:15px}.doc-link{display:flex;align-items:center;background:rgba(255,255,255,.05);padding:12px 15px;border-radius:8px;color:#cbd5e1;text-decoration:none;transition:.3s;border:1px solid rgba(242,183,5,.1);font-size:.95rem}.doc-link:hover{background:rgba(242,183,5,.1);color:white;border-color:rgba(242,183,5,.4);transform:translateY(-2px)}</style>
+
+<section class="page-header service-page-header">
+    <div class="container">
+        <span class="page-eyebrow">Atribuição registral</span>
+        <h1>Registro de Imóveis</h1>
+        <p>Segurança, publicidade e eficácia para os direitos sobre imóveis.</p>
+    </div>
+</section>
+
+<main class="container service-page">
+    <section class="service-overview" aria-labelledby="sobre-ri">
+        <div class="service-overview-copy">
+            <span class="resource-kicker">Conheça a especialidade</span>
+            <h2 id="sobre-ri">Sobre o Registro de Imóveis</h2>
+            <p>O Registro de Imóveis conserva o histórico jurídico dos imóveis. Nele são registrados e averbados os atos que alteram a propriedade e outros direitos reais, garantindo publicidade e segurança às transações.</p>
+        </div>
+        <div class="service-list-card">
+            <h3>Principais serviços</h3>
+            <ul class="service-list">
+                <li><i class="fa-solid fa-check"></i> Escrituras de compra e venda</li>
+                <li><i class="fa-solid fa-check"></i> Construção e demolição</li>
+                <li><i class="fa-solid fa-check"></i> Certidões de matrícula, ônus e ações</li>
+                <li><i class="fa-solid fa-check"></i> Loteamentos e incorporações</li>
+                <li><i class="fa-solid fa-check"></i> Hipotecas e alienação fiduciária</li>
+            </ul>
+        </div>
+    </section>
+
+    <?php renderEmolumentsSection('ri'); ?>
+    <?php renderRiHighValueRanges(); ?>
+    <?php renderDocumentDownloads($riDocuments); ?>
+
+    <section class="service-cta" aria-label="Solicitar serviço de Registro de Imóveis">
+        <div>
+            <span class="resource-kicker">Atendimento eletrônico</span>
+            <h2>Solicite pelo RI Digital</h2>
+            <p>O pedido será realizado diretamente na plataforma nacional do ONR.</p>
+        </div>
+        <a href="https://ridigital.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Acessar RI Digital <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    </section>
+</main>
+
 <?php include 'components/footer.php'; ?>

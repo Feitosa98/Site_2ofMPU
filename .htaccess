@@ -1,15 +1,26 @@
-DirectoryIndex index.php index.html
+# Ativar URLs Amigaveis (Remover .php)
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.php [NC,L]
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
+# Configurações de Segurança Apache (Hostinger)
 
-    # Mantém arquivos e diretórios reais intactos.
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
+# Desativar a listagem aberta de pastas
+Options -Indexes
 
-    # Permite URLs limpas: /imoveis -> /imoveis.php,
-    # /rtdpj -> /rtdpj.php, /rcpn -> /rcpn.php e demais PHP existentes.
-    RewriteCond %{REQUEST_FILENAME}.php -f
-    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
+# Proteger código auxiliar, backups e dados confidenciais
+<FilesMatch "(^\.|^config(?:\..*)?\.php$|^(security|auth)\.php$|\.(sql|sqlite|ini|log|env|md|zip|bak|old|py|bat|sh)$)">
+    Require all denied
+</FilesMatch>
+
+# Forçar HSTS (Opcional, porém excelente para performance caso ative HTTPS Cloudflare)
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; media-src 'self'; frame-src https://www.google.com https://www.instagram.com https://c0eefb8b-9ae0-4368-a636-a76df70f8076.filesusr.com https://www.tjam.jus.br; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+    Header always unset X-Powered-By
 </IfModule>

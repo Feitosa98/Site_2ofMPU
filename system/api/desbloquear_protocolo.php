@@ -3,11 +3,15 @@
 header('Content-Type: application/json');
 require_once '../auth.php';
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['sucesso' => false, 'erro' => 'Método não permitido.']);
+    exit;
+}
 
 try {
     checkLogin();
+    requireCsrf();
     $conn = getDBConnection();
     $userId = $_SESSION['user_id'];
     $userLevel = $_SESSION['user_level'];
@@ -35,6 +39,6 @@ try {
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['sucesso' => false, 'erro' => $e->getMessage()]);
+    echo json_encode(['sucesso' => false, 'erro' => publicExceptionMessage($e)]);
 }
 ?>

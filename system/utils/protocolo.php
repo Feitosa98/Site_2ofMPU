@@ -3,16 +3,15 @@
 
 function gerarProtocolo()
 {
-    // Formato: CART + ANO + ID_UNICO (Ex: CART20241AB2)
-    // Usando uniqid para garantir unicidade e strtoupper para padronizar
+    // Formato: CART + ANO + 10 caracteres criptograficamente aleatórios.
     $ano = date('Y');
-    $uniq = strtoupper(substr(uniqid(), -5)); // Pega os últimos 5 caracteres
+    $uniq = strtoupper(bin2hex(random_bytes(5)));
     return "CART{$ano}{$uniq}";
 }
 
 function gerarSenha()
 {
     // Gera senha numérica de 6 dígitos
-    return str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+    return (string) random_int(100000, 999999);
 }
 ?>

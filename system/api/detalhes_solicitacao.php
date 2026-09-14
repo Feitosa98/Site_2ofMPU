@@ -3,12 +3,9 @@
 header('Content-Type: application/json');
 require_once '../auth.php';
 
-// CORS
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST");
-
 try {
     checkLogin();
+    requireCsrf();
     $conn = getDBConnection();
     $userId = $_SESSION['user_id'];
     $userLevel = $_SESSION['user_level'];
@@ -20,9 +17,10 @@ try {
         throw new Exception("ID inválido");
 
     // 1. Buscar Informações e Status de Bloqueio
-    $sql = "SELECT s.*, u.nome as bloqueado_por_nome 
+    $sql = "SELECT s.*, u.nome as bloqueado_por_nome, svc.nome as servico_nome
             FROM solicitacoes s 
             LEFT JOIN usuarios u ON s.bloqueado_por_id = u.id 
+            LEFT JOIN servicos svc ON s.servico_id = svc.id
             WHERE s.id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id]);
@@ -82,15 +80,21 @@ try {
     $stmtHist->execute([$id]);
     $historico = $stmtHist->fetchAll();
 
+    // Anexos
+    $stmtAnexos = $conn->prepare("SELECT id, nome_arquivo_original, criado_em FROM anexos WHERE solicitacao_id = ? ORDER BY id ASC");
+    $stmtAnexos->execute([$id]);
+    $anexos = $stmtAnexos->fetchAll();
+
     echo json_encode([
         'sucesso' => true,
         'solicitacao' => $solicitacao,
         'historico' => $historico,
+        'anexos' => $anexos,
         'usuario_nivel' => $userLevel
     ]);
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['sucesso' => false, 'erro' => $e->getMessage()]);
+    echo json_encode(['sucesso' => false, 'erro' => publicExceptionMessage($e)]);
 }
 ?>

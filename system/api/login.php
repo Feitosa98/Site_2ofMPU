@@ -1,12 +1,9 @@
 <?php
 // system/api/login.php
 header('Content-Type: application/json');
-session_start();
+require_once '../security.php';
+startSecureSession();
 require_once '../config.php';
-
-// Habilitar CORS para desenvolvimento
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -14,11 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+requireCsrf();
+
 try {
     $conn = getDBConnection();
 
     $email = $_POST['email'] ?? '';
     $senha = $_POST['senha'] ?? '';
+    $ipRateScope = 'login-ip:' . clientIp();
+    $rateScope = 'login-account:' . clientIp() . ':' . strtolower(trim($email));
+    enforceRateLimit($ipRateScope, 20, 900);
+    enforceRateLimit($rateScope, 5, 900);
 
     if (empty($email) || empty($senha)) {
         throw new Exception("Email e senha são obrigatórios.");
@@ -34,29 +37,21 @@ try {
         }
 
         // Login sucesso
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_nome'] = $user['nome'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_level'] = $user['nivel'];
+        resetRateLimit($ipRateScope);
+        resetRateLimit($rateScope);
 
         echo json_encode([
             'sucesso' => true,
             'mensagem' => 'Login realizado com sucesso!',
-            'redirect' => BASE_URL . 'admin/dashboard.html' // Redireciona para o dashboard
+            'redirect' => '../admin/dashboard' // Redireciona para o dashboard
         ]);
     } else {
-        // Para segurança, não especificar se é email ou senha incorretos
-        // Mas para debug inicial pode ajudar
-        // throw new Exception("Credenciais inválidas."); 
-
-        // Simular hash temporário para admin temporário (apenas para primeiro acesso se banco estiver com hash placeholder)
-        // REMOVER ISSO EM PRODUÇÃO
-        if ($senha === 'admin123' && substr($user['senha'], 0, 1) === '$' && password_verify('admin123', $user['senha']) == false) {
-            // Fallback para senha padrão nao hashada se eu tivesse inserido texto plano, mas inseri hash placeholder.
-            // Como inseri '$2y$10$YourHashedPasswordHere', a senha 'admin123' não vai bater.
-            // Vou precisar criar um script para gerar o hash correto ou atualizar o banco agora.
-        }
-
+        // Caso as credenciais não batam
         throw new Exception("Email ou senha incorretos.");
     }
 
@@ -64,7 +59,7 @@ try {
     http_response_code(401);
     echo json_encode([
         'sucesso' => false,
-        'erro' => $e->getMessage()
+        'erro' => publicExceptionMessage($e)
     ]);
 }
 ?>

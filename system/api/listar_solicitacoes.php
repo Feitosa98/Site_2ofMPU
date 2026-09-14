@@ -3,10 +3,6 @@
 header('Content-Type: application/json');
 require_once '../auth.php'; // Protege API, exige login
 
-// Habilitar CORS para desenvolvimento
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET");
-
 try {
     checkLogin(); // Garante que e usuario logado
 
@@ -79,6 +75,6 @@ try {
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['sucesso' => false, 'erro' => $e->getMessage()]);
+    echo json_encode(['sucesso' => false, 'erro' => publicExceptionMessage($e)]);
 }
 ?>

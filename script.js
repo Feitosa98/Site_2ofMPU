@@ -2,17 +2,19 @@
 const mobileToggle = document.querySelector('.mobile-toggle');
 const navLinks = document.querySelector('.nav-links');
 
-mobileToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    const icon = mobileToggle.querySelector('i');
-    if (navLinks.classList.contains('active')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-xmark');
-    } else {
-        icon.classList.remove('fa-xmark');
-        icon.classList.add('fa-bars');
-    }
-});
+if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileToggle.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
+        } else {
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        }
+    });
+}
 
 // Smooth Scroll for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -117,19 +119,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Instagram Video Autoplay
-// Wait for Instagram embeds to load, then enable autoplay
+// Video Autoplay on Scroll (Local Videos)
+document.addEventListener('DOMContentLoaded', function () {
+    const localVideos = document.querySelectorAll('.instagram-video');
+
+    const localVideoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                video.play().catch(e => console.log("Autoplay blocked or failed"));
+            } else {
+                video.pause();
+            }
+        });
+    }, { threshold: 0.1 });
+
+    localVideos.forEach(video => {
+        localVideoObserver.observe(video);
+    });
+});
+
+// Instagram Video Autoplay (Iframes)
 window.addEventListener('load', function () {
     setTimeout(function () {
-        // Find all Instagram iframes
         const instagramIframes = document.querySelectorAll('.instagram-embed iframe');
-
-        // Create intersection observer for video autoplay
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const iframe = entry.target;
                 if (entry.isIntersecting) {
-                    // Try to play the video when visible
                     try {
                         iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                     } catch (e) {
@@ -137,13 +154,10 @@ window.addEventListener('load', function () {
                     }
                 }
             });
-        }, {
-            threshold: 0.5 // Video needs to be 50% visible
-        });
+        }, { threshold: 0.5 });
 
-        // Observe each Instagram iframe
         instagramIframes.forEach(iframe => {
             videoObserver.observe(iframe);
         });
-    }, 2000); // Wait 2 seconds for Instagram embeds to fully load
+    }, 2000);
 });

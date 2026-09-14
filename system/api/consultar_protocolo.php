@@ -1,11 +1,9 @@
 <?php
 // system/api/consultar_protocolo.php
 header('Content-Type: application/json');
-require_once '../config.php';
 
-// Habilitar CORS
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+require_once '../config.php';
+require_once '../security.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -14,30 +12,27 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
+    enforceRateLimit('protocol:' . clientIp(), 10, 600);
     $conn = getDBConnection();
-
     // Receber dados
     $protocolo = $_POST['protocolo'] ?? '';
     $senha = $_POST['senha'] ?? '';
 
     // Validação básica
-    if (empty($protocolo)) {
-        throw new Exception("Informe o número do protocolo.");
+    if (empty($protocolo) || empty($senha)) {
+        throw new Exception("Informe o protocolo e a senha de acesso.");
+    }
+    if (!preg_match('/^[A-Z0-9-]{6,20}$/i', $protocolo) || !preg_match('/^\d{6}$/', $senha)) {
+        throw new Exception("Protocolo ou senha incorreta.");
     }
 
     // Buscar solicitação
     $sql = "SELECT s.*, srv.nome as servico_nome, srv.descricao as servico_descricao
             FROM solicitacoes s
             LEFT JOIN servicos srv ON s.servico_id = srv.id
-            WHERE s.protocolo = ?";
+            WHERE s.protocolo = ? AND s.senha_acesso = ?";
 
-    $params = [$protocolo];
-
-    // Se senha foi fornecida, validar também
-    if (!empty($senha)) {
-        $sql .= " AND s.senha_acesso = ?";
-        $params[] = $senha;
-    }
+    $params = [$protocolo, $senha];
 
     $stmt = $conn->prepare($sql);
     $stmt->execute($params);
@@ -71,7 +66,6 @@ try {
             'cliente_nome' => $solicitacao['cliente_nome'],
             'data_criacao' => (new DateTime($solicitacao['criado_em']))->format('d/m/Y \à\s H:i'),
             'observacoes_cliente' => $solicitacao['observacoes_cliente'],
-            'observacoes_internas' => $solicitacao['observacoes_internas'],
             'historico' => $historico
         ]
     ]);
@@ -80,7 +74,7 @@ try {
     http_response_code(400);
     echo json_encode([
         'sucesso' => false,
-        'erro' => $e->getMessage()
+        'erro' => publicExceptionMessage($e)
     ]);
 }
 ?>

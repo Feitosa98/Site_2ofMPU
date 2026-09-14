@@ -26,9 +26,9 @@ CREATE TABLE `usuarios` (
 -- Despejando dados para `usuarios` (Senha padrão: admin123 - hash deve ser gerado)
 --
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `nivel`) VALUES
-('Administrador', 'admin@cartorio.com', '$2y$10$YourHashedPasswordHere', 'admin'),
-('Supervisor', 'supervisor@cartorio.com', '$2y$10$YourHashedPasswordHere', 'supervisor'),
-('Colaborador', 'colaborador@cartorio.com', '$2y$10$YourHashedPasswordHere', 'colaborador');
+('Administrador', 'admin@cartorio.com', '$2y$10$BWSAw9yBRf6XT12bTEAxAOLl3FBcYqeBTXfNiLoDEbqQhnrKACddu', 'admin'),
+('Supervisor', 'supervisor@cartorio.com', '$2y$10$BWSAw9yBRf6XT12bTEAxAOLl3FBcYqeBTXfNiLoDEbqQhnrKACddu', 'supervisor'),
+('Colaborador', 'colaborador@cartorio.com', '$2y$10$BWSAw9yBRf6XT12bTEAxAOLl3FBcYqeBTXfNiLoDEbqQhnrKACddu', 'colaborador');
 
 -- --------------------------------------------------------
 
@@ -68,6 +68,7 @@ INSERT INTO `servicos` (`categoria`, `nome`, `descricao`) VALUES
 --
 CREATE TABLE `solicitacoes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) DEFAULT NULL,
   `protocolo` varchar(20) NOT NULL,
   `senha_acesso` varchar(6) NOT NULL,
   `cliente_nome` varchar(100) NOT NULL,
@@ -82,6 +83,7 @@ CREATE TABLE `solicitacoes` (
   `bloqueado_em` datetime DEFAULT NULL, -- Hora que começou a mexer (para auto-unlock)
   `observacoes_cliente` text DEFAULT NULL,
   `observacoes_internas` text DEFAULT NULL,
+  `vencimento_em` datetime DEFAULT NULL,
   `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
   `atualizado_em` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
@@ -137,5 +139,10 @@ ALTER TABLE `historico_movimentacoes`
 
 ALTER TABLE `anexos`
   ADD CONSTRAINT `anexos_ibfk_1` FOREIGN KEY (`solicitacao_id`) REFERENCES `solicitacoes` (`id`) ON DELETE CASCADE;
+
+
+-- Script Rápido para atualizar bancos existentes (Rode via phpMyAdmin para MySQL)
+-- ALTER TABLE `solicitacoes` ADD COLUMN `titulo` VARCHAR(255) DEFAULT NULL AFTER `id`;
+-- ALTER TABLE `solicitacoes` ADD COLUMN `vencimento_em` DATETIME DEFAULT NULL AFTER `observacoes_internas`;
 
 COMMIT;

@@ -1,9 +1,103 @@
 <?php
-$page_title = "Registro Civil das Pessoas Naturais - Cartório 2º Ofício";
+$page_title = "Registro Civil das Pessoas Naturais - Cartório 2º Ofício de Manacapuru";
 $is_home = false;
+require_once __DIR__ . '/components/service-resources.php';
 include 'components/header.php';
+
+$rcpnDocuments = [
+    'Registro Civil das Pessoas Naturais' => [
+        'Alteração de Nome e Gênero' => 'documentos/Manacapuru/RCPN/Alteracao de nome e genero.pdf',
+        'Alteração de Prenome' => 'documentos/Manacapuru/RCPN/Alteracao de prenome.pdf',
+        'Alteração de Sobrenome' => 'documentos/Manacapuru/RCPN/Alteracao de sobrenome.pdf',
+        'Certidão de Inteiro Teor' => 'documentos/Manacapuru/RCPN/Certidao de inteiro teor.pdf',
+        'Declaração de Hipossuficiência' => 'documentos/Manacapuru/RCPN/Declaracao de Hipossuficiencia.pdf',
+        'Habilitação de Casamento' => 'documentos/Manacapuru/RCPN/Habilitacao de casamento.pdf',
+        'Reconhecimento de Parentalidade Socioafetiva' => 'documentos/Manacapuru/RCPN/Reconhecimento de parentalidade socioafetiva.pdf',
+        'Reconhecimento de Paternidade Biológica' => 'documentos/Manacapuru/RCPN/Reconhecimento de paternidade biologica.pdf',
+        'Registro de Nascimento Tardio' => 'documentos/Manacapuru/RCPN/Registro de nascimento tardio.pdf',
+        'Registro de Nascimento de Indígena' => 'documentos/Manacapuru/RCPN/Registro de nascimento de indigena.pdf',
+        'Registro de Óbito Tardio' => 'documentos/Manacapuru/RCPN/Registro de obito tardio.pdf',
+        'Restauração de Registro' => 'documentos/Manacapuru/RCPN/Restauracao de registro.pdf',
+        'Retificação Administrativa' => 'documentos/Manacapuru/RCPN/Retificacao administrativa.pdf',
+        'Trasladação de Assento Ocorrido no Exterior' => 'documentos/Manacapuru/RCPN/Trasladacao de assento de brasileiro ocorrido no exterior.pdf',
+    ],
+];
 ?>
-<div class="page-header"><div class="container"><h1 style="color:white;margin-bottom:15px;">Registro Civil das Pessoas Naturais</h1><p style="color:#cbd5e1;font-size:1.1rem;">Registro dos principais atos da vida civil dos cidadãos</p></div></div>
-<div class="container" style="padding-bottom:80px;"><div class="content-container"><h2>Sobre o Registro Civil</h2><p>O Registro Civil das Pessoas Naturais é essencial para o exercício da cidadania. É através dele que são documentados os fatos mais importantes da vida de um indivíduo do nascimento ao óbito, garantindo direitos fundamentais perante o Estado e a sociedade.</p><br><h2>Principais Serviços</h2><ul><li><i class="fa-solid fa-check"></i> Registro de Nascimento</li><li><i class="fa-solid fa-check"></i> Registro e Habilitação de Casamento</li><li><i class="fa-solid fa-check"></i> Registro de Óbito</li><li><i class="fa-solid fa-check"></i> Registro de Interdições, Tutelas e Curatelas</li><li><i class="fa-solid fa-check"></i> Averbações de Divórcio e Reconhecimento de Paternidade</li></ul><br><div class="gratuidade-box"><h3><i class="fa-solid fa-circle-info"></i> Gratuidade do Registro Civil</h3><p>O registro de nascimento e o registro de óbito são gratuitos, assim como a emissão da respectiva primeira certidão, nos termos da legislação aplicável.</p></div><h2>Tabela de Custas e Emolumentos</h2><p>Os atos do Registro Civil das Pessoas Naturais seguem a Tabela V da legislação estadual. Nascimento, óbito e as respectivas primeiras certidões são gratuitos.</p><div class="cost-table-wrap"><table class="cost-table"><thead><tr><th>Serviço</th><th>Observação</th></tr></thead><tbody><tr><td>Registro de nascimento + primeira certidão</td><td>Gratuito</td></tr><tr><td>Registro de óbito + primeira certidão</td><td>Gratuito</td></tr><tr><td>Habilitação/casamento</td><td>Conforme Tabela V vigente e forma de realização</td></tr><tr><td>Segundas vias, averbações e demais atos</td><td>Conforme Tabela V vigente</td></tr></tbody></table></div><a class="official-link" href="https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/tabela-de-emolumentos-anos-anteriores/7377-tabela-de-emolumentos-interior-provimento-n-315-2017/file" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-scale-balanced"></i> Conferir Tabela V oficial no TJAM</a><br><br><h2>Documentos Necessários - Checklist Orientativo</h2><p>Os documentos podem variar conforme a situação pessoal e o ato pretendido. Confira os itens básicos:</p><div class="checklist-grid"><div class="checklist-card"><h3>Registro de nascimento</h3><ul><li>Declaração de Nascido Vivo (DNV)</li><li>Documento de identificação dos pais</li><li>Certidão de casamento dos pais, se houver</li><li>Informações necessárias à qualificação do registro</li></ul></div><div class="checklist-card"><h3>Registro de óbito</h3><ul><li>Declaração de Óbito</li><li>Documento de identificação do falecido, se disponível</li><li>Documento do declarante</li><li>Informações sobre estado civil e filiação</li></ul></div><div class="checklist-card"><h3>Habilitação para casamento</h3><ul><li>Documento oficial com foto e CPF</li><li>Certidão de nascimento ou casamento com averbação pertinente</li><li>Comprovante de residência</li><li>Dados e documentos das testemunhas, quando exigidos</li></ul></div><div class="checklist-card"><h3>Averbações e retificações</h3><ul><li>Certidão do registro a ser alterado</li><li>Documento que comprove o fato a averbar/retificar</li><li>Documento de identificação do requerente</li><li>Mandado, sentença ou escritura, quando aplicável</li></ul></div><div class="checklist-card"><h3>Reconhecimento de paternidade</h3><ul><li>Documentos de identificação</li><li>Certidão de nascimento da pessoa reconhecida</li><li>Anuências exigidas conforme a situação</li></ul></div></div><br><div style="text-align:center;margin-top:30px;"><a href="https://www.registrocivil.org.br/para" target="_blank" rel="noopener noreferrer" class="btn-primary">Solicitar Serviço no Meu Registro <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div></div>
-<style>.cost-table-wrap{overflow-x:auto;margin:16px 0 28px;border:1px solid rgba(242,183,5,.2);border-radius:12px}.cost-table{width:100%;border-collapse:collapse;min-width:620px}.cost-table th,.cost-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}.cost-table th{background:rgba(242,183,5,.12);color:#fff}.cost-table td{color:#cbd5e1}.checklist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px}.checklist-card{background:rgba(255,255,255,.04);border:1px solid rgba(242,183,5,.16);border-radius:10px;padding:18px}.checklist-card h3{font-size:1.05rem;margin-bottom:10px;color:#fff}.checklist-card ul{margin:0;padding:0;list-style:none}.checklist-card li{margin:7px 0;color:#cbd5e1}.checklist-card li:before{content:'✓';color:var(--secondary);font-weight:700;margin-right:8px}.official-link{display:inline-flex;align-items:center;gap:8px;color:var(--secondary);text-decoration:underline;margin-top:8px}.gratuidade-box{background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.3);border-left:4px solid #22c55e;padding:18px;border-radius:10px;margin:20px 0 28px}.gratuidade-box h3{color:#fff;margin-bottom:8px}.gratuidade-box p{color:#dbeafe;margin:0}</style>
+
+<section class="page-header service-page-header">
+    <div class="container">
+        <span class="page-eyebrow">Cidadania desde o nascimento</span>
+        <h1>Registro Civil das Pessoas Naturais</h1>
+        <p>Registro dos principais fatos da vida civil e garantia de direitos fundamentais.</p>
+    </div>
+</section>
+
+<main class="container service-page">
+    <section class="service-overview" aria-labelledby="sobre-rcpn">
+        <div class="service-overview-copy">
+            <span class="resource-kicker">Conheça a especialidade</span>
+            <h2 id="sobre-rcpn">Sobre o Registro Civil</h2>
+            <p>O Registro Civil documenta os fatos mais importantes da vida, do nascimento ao óbito. Esses registros garantem identidade, cidadania e o acesso a direitos perante o Estado e a sociedade.</p>
+        </div>
+        <div class="service-list-card">
+            <h3>Principais serviços</h3>
+            <ul class="service-list">
+                <li><i class="fa-solid fa-check"></i> Nascimento</li>
+                <li><i class="fa-solid fa-check"></i> Casamento e habilitação</li>
+                <li><i class="fa-solid fa-check"></i> Óbito</li>
+                <li><i class="fa-solid fa-check"></i> Interdições, tutelas e curatelas</li>
+                <li><i class="fa-solid fa-check"></i> Averbações e reconhecimento de paternidade</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="resource-section" aria-labelledby="gratuidade-title">
+        <div class="resource-heading">
+            <div>
+                <span class="resource-kicker">Direitos do cidadão</span>
+                <h2 id="gratuidade-title">Gratuidades e isenções</h2>
+            </div>
+        </div>
+        <div class="gratuidade-grid">
+            <article class="gratuidade-card gratuidade-card-free">
+                <div class="gratuidade-heading">
+                    <span class="gratuidade-icon"><i class="fa-solid fa-award"></i></span>
+                    <h3>Atos totalmente gratuitos</h3>
+                </div>
+                <p>Independentemente da condição financeira, não há custo para:</p>
+                <ul>
+                    <li>Registro de nascimento e primeira certidão</li>
+                    <li>Registro de óbito e primeira certidão</li>
+                    <li>Reconhecimento de paternidade biológica e certidão respectiva</li>
+                </ul>
+            </article>
+            <article class="gratuidade-card gratuidade-card-exemptions">
+                <div class="gratuidade-heading">
+                    <span class="gratuidade-icon"><i class="fa-solid fa-circle-info"></i></span>
+                    <h3>Isenções disponíveis</h3>
+                </div>
+                <p>Pessoas hipossuficientes podem obter gratuitamente:</p>
+                <ul>
+                    <li>Certidões atualizadas de nascimento, casamento e óbito, mediante declaração</li>
+                    <li>Inclusão de etnia e alteração de nome indígena</li>
+                    <li>Alterações ordenadas por decisão judicial com gratuidade</li>
+                    <li>Demais atos necessários ao exercício da cidadania previstos em lei</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <?php renderEmolumentsSection('rcpn'); ?>
+    <?php renderDocumentDownloads($rcpnDocuments); ?>
+
+    <section class="service-cta" aria-label="Solicitar serviço de Registro Civil">
+        <div>
+            <span class="resource-kicker">Atendimento eletrônico</span>
+            <h2>Solicite pelo Meu Registro</h2>
+            <p>O pedido será realizado diretamente na plataforma nacional do Registro Civil.</p>
+        </div>
+        <a href="https://registrocivil.org.br/" target="_blank" rel="noopener noreferrer" class="btn-primary">Acessar Meu Registro <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    </section>
+</main>
+
 <?php include 'components/footer.php'; ?>
