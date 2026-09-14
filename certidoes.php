@@ -41,7 +41,7 @@ include 'components/header.php';
             </div>
         </div>
 
-        <div class="gratuidade-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 24px;">
+        <div class="gratuidade-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 24px;">
             <!-- Registro de Imóveis -->
             <article class="resource-panel" style="display: flex; flex-direction: column; justify-content: space-between; padding: 30px;">
                 <div>

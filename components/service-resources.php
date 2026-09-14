@@ -143,6 +143,9 @@ function renderRiUnifiedRanges(): void
             </div>
             <span class="specialty-badge">2025 + Lei 8.212/2026</span>
         </div>
+        <div class="mobile-table-hint">
+            <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
+        </div>
         <div class="fees-table-wrap">
             <table class="fees-table">
                 <thead>
@@ -240,6 +243,9 @@ function renderRiFixedActs(): void
             </div>
             <span class="specialty-badge">Atos Fixos 2025</span>
         </div>
+        <div class="mobile-table-hint">
+            <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
+        </div>
         <div class="fees-table-wrap">
             <table class="fees-table">
                 <thead>
@@ -322,6 +328,9 @@ function renderRtdpjUnifiedRanges(): void
             </div>
             <span class="specialty-badge">Tabela IV — RTD</span>
         </div>
+        <div class="mobile-table-hint">
+            <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
+        </div>
         <div class="fees-table-wrap">
             <table class="fees-table">
                 <thead>
@@ -401,6 +410,9 @@ function renderRtdpjFixedActs(): void
             </div>
             <span class="specialty-badge">Atos Fixos RTD/RCPJ</span>
         </div>
+        <div class="mobile-table-hint">
+            <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
+        </div>
         <div class="fees-table-wrap">
             <table class="fees-table">
                 <thead>
@@ -479,6 +491,9 @@ function renderRcpnFeesTable(): void
                 <p>Valores oficiais para casamentos, certidões, averbações, retificações e demais atos do Registro Civil:</p>
             </div>
             <span class="specialty-badge">Tabela V — RCPN</span>
+        </div>
+        <div class="mobile-table-hint">
+            <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
         </div>
         <div class="fees-table-wrap">
             <table class="fees-table fees-table-rcpn">
