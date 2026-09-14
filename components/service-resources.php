@@ -4,23 +4,23 @@ function renderEmolumentsSection(string $specialty): void
 {
     $tables = [
         'ri' => [
-            'badge' => 'Tabela II',
-            'title' => 'Registro de Imóveis',
-            'description' => 'Atos dos Oficiais de Registro de Imóveis, com cobrança de 5% de ISS.',
+            'badge' => 'Tabela II (2025)',
+            'title' => 'Registro de Imóveis — Tabela Base 2025',
+            'description' => 'Atos dos Oficiais de Registro de Imóveis com base na Tabela Oficial de 2025 (permanece vigente e é complementada pela Lei 8.212/2026).',
             'url' => 'https://c0eefb8b-9ae0-4368-a636-a76df70f8076.filesusr.com/ugd/7a72e4_a25d1ddec8764236a3a899b79bbfbe47.pdf',
             'update' => true,
         ],
         'rtdpj' => [
-            'badge' => 'Tabela IV',
-            'title' => 'RTD e Registro Civil das Pessoas Jurídicas',
-            'description' => 'Registro de Títulos e Documentos e Registro Civil das Pessoas Jurídicas, com cobrança de 5% de ISS.',
+            'badge' => 'Tabela IV (2025)',
+            'title' => 'RTD e Registro Civil das Pessoas Jurídicas — Tabela Base 2025',
+            'description' => 'Registro de Títulos e Documentos e Registro Civil das Pessoas Jurídicas (Tabela Oficial de 2025, complementada pela Lei 8.212/2026).',
             'url' => 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/16207-tabela-de-emolumentos-atos-dos-oficios-de-registro-de-titulos-e-documentos-e-civil-das-pj-s-capital/file',
             'update' => true,
         ],
         'rcpn' => [
-            'badge' => 'Tabela V',
-            'title' => 'Registro Civil das Pessoas Naturais',
-            'description' => 'Atos do Registro Civil das Pessoas Naturais, incluindo casamento, averbações e certidões.',
+            'badge' => 'Tabela V (2025)',
+            'title' => 'Registro Civil das Pessoas Naturais — Tabela Base 2025',
+            'description' => 'Atos do Registro Civil das Pessoas Naturais (Tabela Oficial de 2025), incluindo casamento, averbações e certidões.',
             'url' => 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/16210-tabela-de-emolumentos-atos-dos-oficiais-de-registro-civil-das-pessoas-naturais-capital/file',
             'update' => false,
         ],
@@ -46,15 +46,15 @@ function renderEmolumentsSection(string $specialty): void
         <div class="fee-document">
             <div class="fee-document-heading">
                 <div>
-                    <strong><?= htmlspecialchars($table['badge'] . ' - ' . $table['title'], ENT_QUOTES, 'UTF-8') ?></strong>
-                    <span>Documento oficial específico desta atribuição</span>
+                    <strong><?= htmlspecialchars($table['badge'] . ' — Tabela Base 2025', ENT_QUOTES, 'UTF-8') ?></strong>
+                    <span>Documento oficial de 2025 (vigente como tabela principal)</span>
                 </div>
                 <a class="btn-resource" href="<?= htmlspecialchars($table['url'], ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
-                    Abrir tabela oficial <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    Abrir Tabela 2025 Oficial <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
             <details class="fee-preview-disclosure">
-                <summary><i class="fa-regular fa-file-pdf"></i> Visualizar tabela nesta página <i class="fa-solid fa-chevron-down"></i></summary>
+                <summary><i class="fa-regular fa-file-pdf"></i> Visualizar tabela 2025 nesta página <i class="fa-solid fa-chevron-down"></i></summary>
                 <iframe class="fee-preview" src="<?= htmlspecialchars($table['url'], ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($table['badge'] . ' - ' . $table['title'], ENT_QUOTES, 'UTF-8') ?>" loading="lazy"></iframe>
             </details>
         </div>
@@ -63,15 +63,15 @@ function renderEmolumentsSection(string $specialty): void
             <div class="fee-update-card">
                 <div class="fee-update-icon" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></div>
                 <div>
-                    <strong>Atualização oficial de 2026</strong>
-                    <p>A Lei Estadual nº 8.212, de 28 de abril de 2026, acrescentou novas faixas de valores para esta especialidade.</p>
+                    <strong>Tabela Complementar de 2026 (Lei Estadual nº 8.212/2026)</strong>
+                    <p>A Lei Estadual nº 8.212, de 28 de abril de 2026, <strong>complementa a Tabela Base de 2025</strong> acrescentando novas faixas para atos superiores a R$ 1.055.700,00. As duas tabelas operam em conjunto.</p>
                 </div>
                 <a href="<?= htmlspecialchars($update2026Url, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" class="btn-resource">
-                    Consultar atualização <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    Consultar Lei 2026 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
         <?php endif; ?>
-        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte apenas a tabela da atribuição desejada. O valor final depende do ato e da forma de cálculo.</p>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte a tabela correspondente à atribuição. Para atos de até R$ 1.055.700,00, aplica-se a Tabela de 2025; valores superiores utilizam o complemento de 2026.</p>
     </section>
     <?php
 }
@@ -101,11 +101,11 @@ function renderRiHighValueRanges(): void
     <section class="resource-section resource-panel" aria-labelledby="new-ri-ranges-title">
         <div class="resource-heading">
             <div>
-                <span class="resource-kicker">Tabela complementar</span>
-                <h2 id="new-ri-ranges-title">Novas Faixas de Valores — Registro de Imóveis</h2>
-                <p>Faixas acrescentadas pela Lei Estadual nº 8.212/2026 para atos com valor declarado superior a R$ 1.055.700,00.</p>
+                <span class="resource-kicker">Complemento de 2026</span>
+                <h2 id="new-ri-ranges-title">Tabela Complementar 2026 — Registro de Imóveis (Lei Estadual nº 8.212/2026)</h2>
+                <p>As faixas abaixo foram instituídas pela Lei Estadual nº 8.212/2026 para <strong>complementar a Tabela Base de 2025</strong> nos atos imobiliários com valor declarado superior a R$ 1.055.700,00:</p>
             </div>
-            <span class="specialty-badge">Lei 8.212/2026</span>
+            <span class="specialty-badge">Complemento 2026</span>
         </div>
         <div class="fees-table-wrap">
             <table class="fees-table">
@@ -132,6 +132,7 @@ function renderRiHighValueRanges(): void
                 </tbody>
             </table>
         </div>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados pela Tabela Base 2025 acima. Atos que superem este patamar seguem as faixas complementares de 2026.</p>
     </section>
     <?php
 }
