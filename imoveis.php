@@ -61,8 +61,7 @@ $riDocuments = [
     </section>
 
     <?php renderEmolumentsSection('ri'); ?>
-    <?php renderRiBaseRanges(); ?>
-    <?php renderRiHighValueRanges(); ?>
+    <?php renderRiUnifiedRanges(); ?>
     <?php renderDocumentDownloads($riDocuments); ?>
 
     <section class="service-cta" aria-label="Solicitar serviço de Registro de Imóveis">

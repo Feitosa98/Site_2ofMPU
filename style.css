@@ -1536,6 +1536,41 @@ select.form-control option, select option {
   background-color: rgba(230, 206, 129, 0.08);
 }
 
+.fees-table tr.table-group-header th,
+.fees-table tr.table-group-header td {
+  background: #1b3856 !important;
+  color: var(--secondary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: left !important;
+  padding: 14px 18px;
+  letter-spacing: 0.3px;
+  border-top: 2px solid rgba(230, 206, 129, 0.35);
+  border-bottom: 2px solid rgba(230, 206, 129, 0.2);
+}
+
+.badge-table-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 999px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.badge-table-2025 {
+  background: rgba(230, 206, 129, 0.2);
+  color: #f7e6a5;
+  border: 1px solid rgba(230, 206, 129, 0.4);
+}
+
+.badge-table-2026 {
+  background: rgba(100, 181, 246, 0.2);
+  color: #90caf9;
+  border: 1px solid rgba(100, 181, 246, 0.4);
+}
+
 .checklist-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

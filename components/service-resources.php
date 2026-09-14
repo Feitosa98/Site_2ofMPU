@@ -73,8 +73,7 @@ function renderEmolumentsSection(string $specialty): void
         <?php endif; ?>
         <?php if ($specialty === 'ri'): ?>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
-                <a href="#tabela-base-2025" class="btn-resource"><i class="fa-solid fa-table"></i> Ver Tabela de Faixas 2025 (Até R$ 1,05M)</a>
-                <a href="#tabela-complementar-2026" class="btn-resource"><i class="fa-solid fa-table-list"></i> Ver Tabela Complementar 2026 (Acima de R$ 1,05M)</a>
+                <a href="#tabela-unificada-ri" class="btn-resource"><i class="fa-solid fa-table-list"></i> Consultar Tabela Unificada de Faixas (R$ 0,01 a R$ 50M)</a>
             </div>
         <?php endif; ?>
         <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte a tabela correspondente à atribuição. Para atos de até R$ 1.055.700,00, aplica-se a Tabela de 2025; valores superiores utilizam o complemento de 2026.</p>
@@ -82,9 +81,15 @@ function renderEmolumentsSection(string $specialty): void
     <?php
 }
 
-function renderRiBaseRanges(): void
+function renderRiUnifiedRanges(): void
 {
-    $rows = [
+    static $rendered = false;
+    if ($rendered) {
+        return;
+    }
+    $rendered = true;
+
+    $rows2025 = [
         ['R$ 0,01 a R$ 17.595,00', 'R$ 486,20', 'R$ 24,31', 'R$ 48,62', 'R$ 72,93', 'R$ 4,00', 'R$ 10,00', 'R$ 646,06'],
         ['R$ 17.595,01 a R$ 35.190,00', 'R$ 749,41', 'R$ 37,47', 'R$ 74,94', 'R$ 112,41', 'R$ 4,00', 'R$ 10,00', 'R$ 988,23'],
         ['R$ 35.190,01 a R$ 58.650,00', 'R$ 931,10', 'R$ 46,55', 'R$ 93,11', 'R$ 139,66', 'R$ 4,00', 'R$ 10,00', 'R$ 1.224,42'],
@@ -97,6 +102,26 @@ function renderRiBaseRanges(): void
         ['R$ 703.800,01 a R$ 821.100,00', 'R$ 8.882,41', 'R$ 444,12', 'R$ 888,24', 'R$ 1.332,36', 'R$ 20,00', 'R$ 10,00', 'R$ 11.577,13'],
         ['R$ 821.100,01 a R$ 938.400,00', 'R$ 9.972,57', 'R$ 498,63', 'R$ 997,26', 'R$ 1.495,89', 'R$ 20,00', 'R$ 10,00', 'R$ 12.994,35'],
         ['R$ 938.400,01 a R$ 1.055.700,00', 'R$ 11.749,09', 'R$ 587,45', 'R$ 1.174,91', 'R$ 1.762,36', 'R$ 20,00', 'R$ 10,00', 'R$ 15.303,81'],
+    ];
+
+    $rows2026 = [
+        ['R$ 1.055.700,01 a R$ 4.055.700,00', 'R$ 13.749,09', 'R$ 687,45', 'R$ 1.374,91', 'R$ 2.062,36', 'R$ 20,00', 'R$ 10,00', 'R$ 17.903,81'],
+        ['R$ 4.055.700,01 a R$ 7.055.700,00', 'R$ 15.749,09', 'R$ 787,45', 'R$ 1.574,91', 'R$ 2.362,36', 'R$ 20,00', 'R$ 10,00', 'R$ 20.503,81'],
+        ['R$ 7.055.700,01 a R$ 10.055.700,00', 'R$ 17.749,09', 'R$ 887,45', 'R$ 1.774,91', 'R$ 2.662,36', 'R$ 20,00', 'R$ 10,00', 'R$ 23.103,81'],
+        ['R$ 10.055.700,01 a R$ 13.055.700,00', 'R$ 19.749,09', 'R$ 987,45', 'R$ 1.974,91', 'R$ 2.962,36', 'R$ 20,00', 'R$ 10,00', 'R$ 25.703,81'],
+        ['R$ 13.055.700,01 a R$ 16.055.700,00', 'R$ 21.749,09', 'R$ 1.087,45', 'R$ 2.174,91', 'R$ 3.262,36', 'R$ 20,00', 'R$ 10,00', 'R$ 28.303,81'],
+        ['R$ 16.055.700,01 a R$ 19.055.700,00', 'R$ 23.749,09', 'R$ 1.187,45', 'R$ 2.374,91', 'R$ 3.562,36', 'R$ 20,00', 'R$ 10,00', 'R$ 30.903,81'],
+        ['R$ 19.055.700,01 a R$ 22.055.700,00', 'R$ 25.749,09', 'R$ 1.287,45', 'R$ 2.574,91', 'R$ 3.862,36', 'R$ 20,00', 'R$ 10,00', 'R$ 33.503,81'],
+        ['R$ 22.055.700,01 a R$ 25.055.700,00', 'R$ 27.749,09', 'R$ 1.387,45', 'R$ 2.774,91', 'R$ 4.162,36', 'R$ 20,00', 'R$ 10,00', 'R$ 36.103,81'],
+        ['R$ 25.055.700,01 a R$ 28.055.700,00', 'R$ 29.749,09', 'R$ 1.487,45', 'R$ 2.974,91', 'R$ 4.462,36', 'R$ 20,00', 'R$ 10,00', 'R$ 38.703,81'],
+        ['R$ 28.055.700,01 a R$ 31.055.700,00', 'R$ 31.749,09', 'R$ 1.587,45', 'R$ 3.174,91', 'R$ 4.762,36', 'R$ 20,00', 'R$ 10,00', 'R$ 41.303,81'],
+        ['R$ 31.055.700,01 a R$ 34.055.700,00', 'R$ 33.749,09', 'R$ 1.687,45', 'R$ 3.374,91', 'R$ 5.062,36', 'R$ 20,00', 'R$ 10,00', 'R$ 43.903,81'],
+        ['R$ 34.055.700,01 a R$ 37.055.700,00', 'R$ 35.749,09', 'R$ 1.787,45', 'R$ 3.574,91', 'R$ 5.362,36', 'R$ 20,00', 'R$ 10,00', 'R$ 46.503,81'],
+        ['R$ 37.055.700,01 a R$ 40.055.700,00', 'R$ 37.749,09', 'R$ 1.887,45', 'R$ 3.774,91', 'R$ 5.662,36', 'R$ 20,00', 'R$ 10,00', 'R$ 49.103,81'],
+        ['R$ 40.055.700,01 a R$ 43.055.700,00', 'R$ 39.749,09', 'R$ 1.987,45', 'R$ 3.974,91', 'R$ 5.962,36', 'R$ 20,00', 'R$ 10,00', 'R$ 51.703,81'],
+        ['R$ 43.055.700,01 a R$ 46.055.700,00', 'R$ 41.749,09', 'R$ 2.087,45', 'R$ 4.174,91', 'R$ 6.262,36', 'R$ 20,00', 'R$ 10,00', 'R$ 54.303,81'],
+        ['R$ 46.055.700,01 a R$ 49.055.700,00', 'R$ 43.749,09', 'R$ 2.187,45', 'R$ 4.374,91', 'R$ 6.562,36', 'R$ 20,00', 'R$ 10,00', 'R$ 56.903,81'],
+        ['R$ 49.055.700,01 a R$ 50.000.000,00', 'R$ 45.749,09', 'R$ 2.287,45', 'R$ 4.574,91', 'R$ 6.862,36', 'R$ 20,00', 'R$ 10,00', 'R$ 59.503,81'],
     ];
 
     $fixedActs = [
@@ -114,14 +139,14 @@ function renderRiBaseRanges(): void
         ['Prenotação de títulos (a requerimento do interessado)', 'R$ 263,13', 'R$ 13,16', 'R$ 26,31', 'R$ 39,47', 'R$ 3,00', '—', 'R$ 345,07'],
     ];
     ?>
-    <section class="resource-section resource-panel" id="tabela-base-2025" aria-labelledby="base-ri-ranges-title">
+    <section class="resource-section resource-panel" id="tabela-unificada-ri" aria-labelledby="unified-ri-ranges-title">
         <div class="resource-heading">
             <div>
-                <span class="resource-kicker">Tabela Base Oficial</span>
-                <h2 id="base-ri-ranges-title">Tabela Base 2025 — Registro de Imóveis (Tabela II TJAM)</h2>
-                <p>Faixas de valores aplicáveis a registros e averbações com valor declarado de <strong>R$ 0,01 até R$ 1.055.700,00</strong>:</p>
+                <span class="resource-kicker">Tabela Unificada de Emolumentos</span>
+                <h2 id="unified-ri-ranges-title">Tabela Geral de Faixas de Valores — Registro de Imóveis (2025/2026)</h2>
+                <p>Tabela contínua de valores do Registro de Imóveis: integração das faixas base de 2025 (de R$ 0,01 até R$ 1.055.700,00) com as faixas complementares da Lei Estadual nº 8.212/2026 (acima de R$ 1.055.700,00 até R$ 50.000.000,00).</p>
             </div>
-            <span class="specialty-badge">Tabela Base 2025</span>
+            <span class="specialty-badge">2025 + Lei 8.212/2026</span>
         </div>
         <div class="fees-table-wrap">
             <table class="fees-table">
@@ -138,7 +163,27 @@ function renderRiBaseRanges(): void
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $row): ?>
+                    <tr class="table-group-header">
+                        <th colspan="8">
+                            <i class="fa-solid fa-calendar-check"></i> Faixas da Tabela Base 2025 (Atos de R$ 0,01 até R$ 1.055.700,00)
+                            <span class="badge-table-tag badge-table-2025">Tabela Base 2025</span>
+                        </th>
+                    </tr>
+                    <?php foreach ($rows2025 as $row): ?>
+                        <tr>
+                            <?php foreach ($row as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+
+                    <tr class="table-group-header">
+                        <th colspan="8">
+                            <i class="fa-solid fa-scale-balanced"></i> Faixas Complementares 2026 — Lei Estadual nº 8.212/2026 (Atos acima de R$ 1.055.700,00 até R$ 50.000.000,00)
+                            <span class="badge-table-tag badge-table-2026">Complemento Lei 8.212/2026</span>
+                        </th>
+                    </tr>
+                    <?php foreach ($rows2026 as $row): ?>
                         <tr>
                             <?php foreach ($row as $cell): ?>
                                 <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
@@ -181,70 +226,19 @@ function renderRiBaseRanges(): void
             </div>
         </details>
 
-        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Atos até R$ 1.055.700,00:</strong> Calculados por esta Tabela Base de 2025. Para atos que ultrapassem esse montante, consulte a <a href="#tabela-complementar-2026" style="color: var(--secondary); text-decoration: underline;">Tabela Complementar 2026</a> abaixo.</p>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados com base na Tabela Oficial de 2025. Atos com valores superiores aplicam o escalonamento instituído pela Lei Estadual nº 8.212/2026.</p>
     </section>
     <?php
 }
 
+function renderRiBaseRanges(): void
+{
+    renderRiUnifiedRanges();
+}
+
 function renderRiHighValueRanges(): void
 {
-    $rows = [
-        ['R$ 1.055.700,01 a R$ 4.055.700,00', 'R$ 13.749,09', 'R$ 687,45', 'R$ 1.374,91', 'R$ 2.062,36', 'R$ 20,00', 'R$ 10,00', 'R$ 17.903,81'],
-        ['R$ 4.055.700,01 a R$ 7.055.700,00', 'R$ 15.749,09', 'R$ 787,45', 'R$ 1.574,91', 'R$ 2.362,36', 'R$ 20,00', 'R$ 10,00', 'R$ 20.503,81'],
-        ['R$ 7.055.700,01 a R$ 10.055.700,00', 'R$ 17.749,09', 'R$ 887,45', 'R$ 1.774,91', 'R$ 2.662,36', 'R$ 20,00', 'R$ 10,00', 'R$ 23.103,81'],
-        ['R$ 10.055.700,01 a R$ 13.055.700,00', 'R$ 19.749,09', 'R$ 987,45', 'R$ 1.974,91', 'R$ 2.962,36', 'R$ 20,00', 'R$ 10,00', 'R$ 25.703,81'],
-        ['R$ 13.055.700,01 a R$ 16.055.700,00', 'R$ 21.749,09', 'R$ 1.087,45', 'R$ 2.174,91', 'R$ 3.262,36', 'R$ 20,00', 'R$ 10,00', 'R$ 28.303,81'],
-        ['R$ 16.055.700,01 a R$ 19.055.700,00', 'R$ 23.749,09', 'R$ 1.187,45', 'R$ 2.374,91', 'R$ 3.562,36', 'R$ 20,00', 'R$ 10,00', 'R$ 30.903,81'],
-        ['R$ 19.055.700,01 a R$ 22.055.700,00', 'R$ 25.749,09', 'R$ 1.287,45', 'R$ 2.574,91', 'R$ 3.862,36', 'R$ 20,00', 'R$ 10,00', 'R$ 33.503,81'],
-        ['R$ 22.055.700,01 a R$ 25.055.700,00', 'R$ 27.749,09', 'R$ 1.387,45', 'R$ 2.774,91', 'R$ 4.162,36', 'R$ 20,00', 'R$ 10,00', 'R$ 36.103,81'],
-        ['R$ 25.055.700,01 a R$ 28.055.700,00', 'R$ 29.749,09', 'R$ 1.487,45', 'R$ 2.974,91', 'R$ 4.462,36', 'R$ 20,00', 'R$ 10,00', 'R$ 38.703,81'],
-        ['R$ 28.055.700,01 a R$ 31.055.700,00', 'R$ 31.749,09', 'R$ 1.587,45', 'R$ 3.174,91', 'R$ 4.762,36', 'R$ 20,00', 'R$ 10,00', 'R$ 41.303,81'],
-        ['R$ 31.055.700,01 a R$ 34.055.700,00', 'R$ 33.749,09', 'R$ 1.687,45', 'R$ 3.374,91', 'R$ 5.062,36', 'R$ 20,00', 'R$ 10,00', 'R$ 43.903,81'],
-        ['R$ 34.055.700,01 a R$ 37.055.700,00', 'R$ 35.749,09', 'R$ 1.787,45', 'R$ 3.574,91', 'R$ 5.362,36', 'R$ 20,00', 'R$ 10,00', 'R$ 46.503,81'],
-        ['R$ 37.055.700,01 a R$ 40.055.700,00', 'R$ 37.749,09', 'R$ 1.887,45', 'R$ 3.774,91', 'R$ 5.662,36', 'R$ 20,00', 'R$ 10,00', 'R$ 49.103,81'],
-        ['R$ 40.055.700,01 a R$ 43.055.700,00', 'R$ 39.749,09', 'R$ 1.987,45', 'R$ 3.974,91', 'R$ 5.962,36', 'R$ 20,00', 'R$ 10,00', 'R$ 51.703,81'],
-        ['R$ 43.055.700,01 a R$ 46.055.700,00', 'R$ 41.749,09', 'R$ 2.087,45', 'R$ 4.174,91', 'R$ 6.262,36', 'R$ 20,00', 'R$ 10,00', 'R$ 54.303,81'],
-        ['R$ 46.055.700,01 a R$ 49.055.700,00', 'R$ 43.749,09', 'R$ 2.187,45', 'R$ 4.374,91', 'R$ 6.562,36', 'R$ 20,00', 'R$ 10,00', 'R$ 56.903,81'],
-        ['R$ 49.055.700,01 a R$ 50.000.000,00', 'R$ 45.749,09', 'R$ 2.287,45', 'R$ 4.574,91', 'R$ 6.862,36', 'R$ 20,00', 'R$ 10,00', 'R$ 59.503,81'],
-    ];
-    ?>
-    <section class="resource-section resource-panel" id="tabela-complementar-2026" aria-labelledby="new-ri-ranges-title">
-        <div class="resource-heading">
-            <div>
-                <span class="resource-kicker">Complemento de 2026</span>
-                <h2 id="new-ri-ranges-title">Tabela Complementar 2026 — Registro de Imóveis (Lei Estadual nº 8.212/2026)</h2>
-                <p>As faixas abaixo foram instituídas pela Lei Estadual nº 8.212/2026 para <strong>complementar a Tabela Base de 2025</strong> nos atos imobiliários com valor declarado superior a R$ 1.055.700,00:</p>
-            </div>
-            <span class="specialty-badge">Complemento 2026</span>
-        </div>
-        <div class="fees-table-wrap">
-            <table class="fees-table">
-                <thead>
-                    <tr>
-                        <th>Faixa de valores do ato</th>
-                        <th>Emolumento</th>
-                        <th>ISS</th>
-                        <th>FIG-RCPN</th>
-                        <th>Funjeam Extrajudicial</th>
-                        <th>Selo</th>
-                        <th>Computação</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rows as $row): ?>
-                        <tr>
-                            <?php foreach ($row as $cell): ?>
-                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
-                            <?php endforeach; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados pela Tabela Base 2025 acima. Atos que superem este patamar seguem as faixas complementares de 2026.</p>
-    </section>
-    <?php
+    renderRiUnifiedRanges();
 }
 
 function renderServiceChecklists(array $checklists): void
