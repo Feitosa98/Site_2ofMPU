@@ -50,6 +50,8 @@ $rtdpjDocuments = [
     </section>
 
     <?php renderEmolumentsSection('rtdpj'); ?>
+    <?php renderRtdpjUnifiedRanges(); ?>
+    <?php renderRtdpjFixedActs(); ?>
     <?php renderDocumentDownloads($rtdpjDocuments); ?>
 
     <section class="service-cta" aria-label="Solicitar serviço de RTD ou RCPJ">

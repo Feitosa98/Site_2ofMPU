@@ -76,6 +76,15 @@ function renderEmolumentsSection(string $specialty): void
                 <a href="#tabela-unificada-ri" class="btn-resource"><i class="fa-solid fa-table-list"></i> Tabela Geral de Faixas (R$ 0,01 a R$ 50M)</a>
                 <a href="#atos-fixos-ri" class="btn-resource"><i class="fa-solid fa-list-check"></i> Demais Atos Fixos (Tabela 2025)</a>
             </div>
+        <?php elseif ($specialty === 'rtdpj'): ?>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+                <a href="#tabela-faixas-rtdpj" class="btn-resource"><i class="fa-solid fa-table-list"></i> Tabela de Faixas (RTD com valor)</a>
+                <a href="#atos-fixos-rtdpj" class="btn-resource"><i class="fa-solid fa-list-check"></i> Demais Atos Fixos (RTD e RCPJ)</a>
+            </div>
+        <?php elseif ($specialty === 'rcpn'): ?>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+                <a href="#tabela-atos-rcpn" class="btn-resource"><i class="fa-solid fa-table-list"></i> Tabela Oficial de Atos do Registro Civil (RCPN)</a>
+            </div>
         <?php endif; ?>
         <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte a tabela correspondente à atribuição. Para atos de até R$ 1.055.700,00, aplica-se a Tabela de 2025; valores superiores utilizam o complemento de 2026.</p>
     </section>
@@ -270,6 +279,243 @@ function renderRiFixedActs(): void
         </details>
 
         <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Atos Fixos:</strong> Valores vigentes calculados em conformidade com a Lei Estadual nº 2.751/02, provimentos da CGJ-AM e legislação tributária municipal/estadual.</p>
+    </section>
+    <?php
+}
+
+function renderRtdpjUnifiedRanges(): void
+{
+    static $rendered = false;
+    if ($rendered) return;
+    $rendered = true;
+
+    $rows = [
+        ['R$ 0,01 a R$ 17.595,00', 'R$ 160,23', 'R$ 7,53', 'R$ 8,39', 'R$ 8,39', 'R$ 25,16', 'R$ 3,00', 'R$ 212,70'],
+        ['R$ 17.595,01 a R$ 35.190,00', 'R$ 480,68', 'R$ 7,53', 'R$ 24,41', 'R$ 24,41', 'R$ 73,23', 'R$ 3,00', 'R$ 613,26'],
+        ['R$ 35.190,01 a R$ 58.650,00', 'R$ 640,90', 'R$ 7,53', 'R$ 32,42', 'R$ 32,42', 'R$ 97,26', 'R$ 4,00', 'R$ 814,53'],
+        ['R$ 58.650,01 a R$ 117.300,00', 'R$ 801,13', 'R$ 7,53', 'R$ 40,43', 'R$ 40,43', 'R$ 121,30', 'R$ 4,00', 'R$ 1.014,82'],
+        ['R$ 117.300,01 a R$ 234.600,00', 'R$ 1.121,58', 'R$ 7,53', 'R$ 56,46', 'R$ 56,46', 'R$ 169,37', 'R$ 6,00', 'R$ 1.417,40'],
+        ['R$ 234.600,01 a R$ 351.900,00', 'R$ 2.803,94', 'R$ 7,53', 'R$ 140,57', 'R$ 140,57', 'R$ 421,72', 'R$ 7,00', 'R$ 3.521,33'],
+        ['R$ 351.900,01 a R$ 469.200,00', 'R$ 3.925,51', 'R$ 7,53', 'R$ 196,65', 'R$ 196,65', 'R$ 589,96', 'R$ 8,00', 'R$ 4.924,30'],
+        ['R$ 469.200,01 a R$ 586.500,00', 'R$ 5.047,09', 'R$ 7,53', 'R$ 252,73', 'R$ 252,73', 'R$ 758,19', 'R$ 8,00', 'R$ 6.326,27'],
+        ['R$ 586.500,01 a R$ 703.800,00', 'R$ 6.168,66', 'R$ 7,53', 'R$ 308,81', 'R$ 308,81', 'R$ 926,43', 'R$ 8,00', 'R$ 7.728,24'],
+        ['R$ 703.800,01 a R$ 821.100,00', 'R$ 7.290,25', 'R$ 7,53', 'R$ 364,89', 'R$ 364,89', 'R$ 1.094,67', 'R$ 10,00', 'R$ 9.132,23'],
+        ['R$ 821.100,01 a R$ 938.400,00', 'R$ 7.851,03', 'R$ 7,53', 'R$ 392,93', 'R$ 392,93', 'R$ 1.178,78', 'R$ 10,00', 'R$ 9.833,20'],
+        ['R$ 938.400,01 a R$ 1.055.700,00', 'R$ 8.411,83', 'R$ 7,53', 'R$ 420,97', 'R$ 420,97', 'R$ 1.262,90', 'R$ 10,00', 'R$ 10.534,20'],
+        ['Acima de R$ 1.055.700,00', 'R$ 11.215,77', 'R$ 7,53', 'R$ 561,17', 'R$ 561,17', 'R$ 1.683,50', 'R$ 10,00', 'R$ 14.039,14'],
+    ];
+
+    $notes = [
+        'No registro de Contratos de Alienação Fiduciária, a base de cálculo será o valor do crédito principal concedido.',
+        'No registro de Recibo de Sinal de Venda e Compra, a base de cálculo será o valor do próprio sinal.',
+        'Nos Contratos de Leasing, a base de cálculo incidirá sobre o valor da aquisição do bem objeto do contrato.',
+        'Nas Cessões de Crédito, a base de cálculo será sobre o valor total das garantias oferecidas sem consideração de qualquer outro acréscimo.',
+        'Nos Contratos de Prestação de Serviço com prazo determinado, o cálculo incidirá sobre a soma das parcelas pactuadas (se prazo indeterminado, toma-se a soma de doze parcelas mensais).',
+    ];
+    ?>
+    <section class="resource-section resource-panel" id="tabela-faixas-rtdpj" aria-labelledby="rtdpj-ranges-title">
+        <div class="resource-heading">
+            <div>
+                <span class="resource-kicker">Tabela IV TJAM</span>
+                <h2 id="rtdpj-ranges-title">Registro com Valor Declarado — RTD (Tabela Base 2025/2026)</h2>
+                <p>Registro integral de contratos, títulos e documentos com valor declarado, qualquer que seja o número de páginas:</p>
+            </div>
+            <span class="specialty-badge">Tabela IV — RTD</span>
+        </div>
+        <div class="fees-table-wrap">
+            <table class="fees-table">
+                <thead>
+                    <tr>
+                        <th>Faixa de valores do ato</th>
+                        <th>Emolumento</th>
+                        <th>Computação</th>
+                        <th>ISS (5%)</th>
+                        <th>Funjeam RCPN</th>
+                        <th>Funjeam Extrajudicial</th>
+                        <th>Selo</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rows as $row): ?>
+                        <tr>
+                            <?php foreach ($row as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <details class="checklist-card" style="margin-top: 22px;">
+            <summary>
+                <span><i class="fa-solid fa-circle-info"></i> Regras Específicas de Base de Cálculo (RTD)</span>
+                <i class="fa-solid fa-chevron-down checklist-arrow" aria-hidden="true"></i>
+            </summary>
+            <ul style="margin-top: 8px;">
+                <?php foreach ($notes as $note): ?>
+                    <li><i class="fa-solid fa-check"></i> <?= htmlspecialchars($note, ENT_QUOTES, 'UTF-8') ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </details>
+
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Atos com valor superior a R$ 1.055.700,00 seguem a legislação complementar vigente (Lei Estadual nº 8.212/2026).</p>
+    </section>
+    <?php
+}
+
+function renderRtdpjFixedActs(): void
+{
+    static $rendered = false;
+    if ($rendered) return;
+    $rendered = true;
+
+    $fixedActs = [
+        ['II.a - Registro integral sem valor declarado (até 1 lauda)', 'R$ 80,12', 'R$ 4,01', 'R$ 4,01', 'R$ 12,02', 'R$ 3,00', '—', 'R$ 103,16'],
+        ['II.b - Registro integral sem valor declarado (por lauda que acrescer)', 'R$ 32,05', 'R$ 1,60', 'R$ 1,60', 'R$ 4,81', 'R$ 0,00', '—', 'R$ 40,06'],
+        ['III.a - Registro resumido de contratos e títulos (até 1 lauda)', 'R$ 41,67', 'R$ 2,08', 'R$ 2,08', 'R$ 6,25', 'R$ 1,90', '—', 'R$ 53,98'],
+        ['III.b - Registro resumido de contratos e títulos (por lauda que acrescer)', 'R$ 20,83', 'R$ 1,04', 'R$ 1,04', 'R$ 3,12', 'R$ 0,00', '—', 'R$ 26,03'],
+        ['IV.a - Notificação extrajudicial na Zona Urbana (até 3 diligências)', 'R$ 72,11', 'R$ 3,61', 'R$ 3,61', 'R$ 10,82', 'R$ 3,00', '—', 'R$ 93,15'],
+        ['IV.b - Notificação extrajudicial fora da Zona Urbana (até 3 diligências)', 'R$ 128,18', 'R$ 6,41', 'R$ 6,41', 'R$ 19,23', 'R$ 3,00', '—', 'R$ 163,23'],
+        ['IV.c - Notificação extrajudicial (acima de 3 diligências, por ato praticado)', 'R$ 24,04', 'R$ 1,20', 'R$ 1,20', 'R$ 3,61', 'R$ 1,90', '—', 'R$ 31,95'],
+        ['V - Averbação de títulos ou documentos quando o ato tiver valor próprio', '—', '—', '—', '—', '—', '—', 'Metade do ato primitivo'],
+        ['VI.a - Inscrição de Pessoas Jurídicas (incluindo processo e arquivamento - até 1 lauda)', 'R$ 240,34', 'R$ 12,02', 'R$ 12,02', 'R$ 36,05', 'R$ 3,00', '—', 'R$ 303,43'],
+        ['VI.b - Inscrição de Pessoas Jurídicas (por lauda que acrescer)', 'R$ 24,04', 'R$ 1,20', 'R$ 1,20', 'R$ 3,61', 'R$ 0,00', '—', 'R$ 30,05'],
+        ['VII - Matrícula de oficina impressora, jornal e outros periódicos', 'R$ 256,36', 'R$ 12,82', 'R$ 12,82', 'R$ 38,45', 'R$ 3,00', '—', 'R$ 323,45'],
+        ['VIII.a - Certidão por peça reproduzida e/ou por folha', 'R$ 80,12', 'R$ 4,01', 'R$ 4,01', 'R$ 12,02', 'R$ 3,00', '—', 'R$ 103,16'],
+        ['VIII.b - Certidão negativa de pessoa jurídica ou de títulos e documentos', 'R$ 80,12', 'R$ 4,01', 'R$ 4,01', 'R$ 12,02', 'R$ 3,00', '—', 'R$ 103,16'],
+        ['IX - Cancelamento de registro (inclusive busca e certidão)', 'R$ 88,12', 'R$ 4,41', 'R$ 4,41', 'R$ 13,22', 'R$ 3,00', '—', 'R$ 113,16'],
+        ['X - Autenticação de livros contábeis obrigatórios das sociedades civis', 'R$ 62,49', 'R$ 3,12', 'R$ 3,12', 'R$ 9,37', 'R$ 3,00', '—', 'R$ 81,10'],
+        ['XI.a - Buscas em livros ou papéis arquivados (até dez anos)', 'R$ 20,83', 'R$ 1,04', 'R$ 1,04', 'R$ 3,12', 'R$ 1,90', '—', 'R$ 27,93'],
+        ['XI.b - Buscas em livros arquivados (acima de dez anos por ano, até máx R$ 230,78)', 'R$ 11,22', 'R$ 0,56', 'R$ 0,56', 'R$ 1,68', 'R$ 1,90', '—', 'R$ 15,92'],
+        ['XII - Apostilamento de Haia (RTD e RCPJ)', 'R$ 32,00', 'R$ 1,60', 'R$ 1,60', 'R$ 4,80', 'R$ 1,90', '—', 'R$ 41,90'],
+    ];
+    ?>
+    <section class="resource-section resource-panel" id="atos-fixos-rtdpj" aria-labelledby="rtdpj-fixed-title">
+        <div class="resource-heading">
+            <div>
+                <span class="resource-kicker">Tabela Base Oficial</span>
+                <h2 id="rtdpj-fixed-title">Demais Atos de RTD e RCPJ (Tabela IV TJAM)</h2>
+                <p>Valores oficiais para atos sem valor declarado, notificações extrajudiciais, registro de pessoas jurídicas, certidões e averbações:</p>
+            </div>
+            <span class="specialty-badge">Atos Fixos RTD/RCPJ</span>
+        </div>
+        <div class="fees-table-wrap">
+            <table class="fees-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Ato / Serviço Registral</th>
+                        <th>Emolumento</th>
+                        <th>ISS (5%)</th>
+                        <th>Funjeam RCPN</th>
+                        <th>Funjeam Ext.</th>
+                        <th>Selo</th>
+                        <th>Extras</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($fixedActs as $act): ?>
+                        <tr>
+                            <?php foreach ($act as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Valores fixados pela Corregedoria-Geral de Justiça do TJAM (Tabela IV) vigentes para a Capital e Interior.</p>
+    </section>
+    <?php
+}
+
+function renderRcpnFeesTable(): void
+{
+    static $rendered = false;
+    if ($rendered) return;
+    $rendered = true;
+
+    $rcpnActs = [
+        ['I.a - Casamento nos auditórios ou cartórios', 'R$ 208,29', 'R$ 10,42', 'R$ 3,00', 'R$ 221,71'],
+        ['I.b - Casamento em domicílio (excluídas despesas com condução)', 'R$ 320,45', 'R$ 16,02', 'R$ 3,00', 'R$ 339,47'],
+        ['I.c - Casamento realizado após as 18:00 horas', 'R$ 320,45', 'R$ 16,02', 'R$ 3,00', 'R$ 339,47'],
+        ['I.d - Dispensa total ou parcial do prazo de proclamas', 'R$ 104,15', 'R$ 5,20', 'R$ 3,00', 'R$ 112,35'],
+        ['I.e - Registro e afixação de edital de proclamas de outro cartório', 'R$ 62,49', 'R$ 3,13', 'R$ 3,00', 'R$ 68,62'],
+        ['I.f - Casamento à vista de habilitação processada em outro cartório', 'R$ 104,15', 'R$ 5,20', 'R$ 3,00', 'R$ 112,35'],
+        ['I.g - Reconhecimento de firma de precedentes, testemunhas e outros', 'R$ 2,41', 'R$ 0,12', 'R$ 1,90', 'R$ 4,43'],
+        ['II.a - Assento de nascimento no prazo (art. 50 Lei 6.015/73)', 'R$ 35,24', 'R$ 1,76', 'R$ 1,90', 'Gratuito (Lei 9.534/97)'],
+        ['II.b - Assento de nascimento fora do prazo', 'R$ 62,49', 'R$ 3,13', 'R$ 3,00', 'Gratuito (Lei 9.534/97)'],
+        ['III - Assento de óbito e guia de sepultamento', 'R$ 62,49', 'R$ 3,13', 'R$ 3,00', 'Gratuito (Lei 9.534/97)'],
+        ['IV - Registro de sentenças (emancipação, interdição, tutela, divórcio, união estável no Livro E)', 'R$ 62,49', 'R$ 3,13', 'R$ 3,00', 'R$ 68,62'],
+        ['V - Transcrição de registro no estrangeiro (nascimento, casamento, óbito)', 'R$ 14,42', 'R$ 0,72', 'R$ 1,90', 'R$ 17,04'],
+        ['VI - Retificação administrativa ou erro de grafia', 'R$ 41,67', 'R$ 2,09', 'R$ 1,90', 'R$ 45,66'],
+        ['VII - Averbação no Registro Civil (por averbação)', 'R$ 96,13', 'R$ 4,81', 'R$ 3,00', 'R$ 103,94'],
+        ['VIII.a - Certidão de Registro Civil (até 10 anos)', 'R$ 62,49', 'R$ 3,13', 'R$ 3,00', 'R$ 68,62'],
+        ['VIII.b - Certidão de Registro Civil (acima de 10 até 20 anos)', 'R$ 64,10', 'R$ 3,21', 'R$ 3,00', 'R$ 70,31'],
+        ['VIII.c - Certidão de Registro Civil (acima de 20 anos)', 'R$ 72,11', 'R$ 3,61', 'R$ 3,00', 'R$ 78,72'],
+        ['VIII.d - Certidão de inteiro teor (verbo ad-verbum)', 'R$ 96,13', 'R$ 4,81', 'R$ 3,00', 'R$ 103,94'],
+        ['VIII.e - Certidão negativa de Registro Civil', 'R$ 62,49', 'R$ 3,13', 'R$ 3,00', 'R$ 68,62'],
+        ['IX.a - Notificação, intimação ou anotação por determinação judicial', 'R$ 20,83', 'R$ 1,04', 'R$ 1,90', 'R$ 23,77'],
+        ['IX.b - Elaboração de petição, atestado ou declaração exigida por lei', 'R$ 20,83', 'R$ 1,04', 'R$ 1,90', 'R$ 23,77'],
+        ['X - Autenticação e cópia reprográfica', 'R$ 3,21', 'R$ 0,16', 'R$ 1,90', 'R$ 5,27'],
+        ['XI - Busca em processos, livros e documentos arquivados', 'R$ 20,83', 'R$ 1,04', 'R$ 1,90', 'R$ 23,77'],
+        ['XII - Diligência fora do expediente', 'R$ 20,83', 'R$ 1,04', 'R$ 1,90', 'R$ 23,77'],
+        ['XIII - Apostilamento de Haia (RCPN - com fundos institucionais)', 'R$ 32,00', 'R$ 1,60', 'R$ 1,90', 'R$ 43,20'],
+    ];
+
+    $gratuidades = [
+        'São inteiramente gratuitos os registros de nascimento, os assentos de óbito e a primeira via da respectiva certidão, nos termos da Lei Federal nº 9.534/1997.',
+        'Pessoas comprovadamente hipossuficientes têm direito à gratuidade na habilitação para o casamento civil e na emissão de segundas vias de certidões, mediante declaração.',
+        'O reconhecimento de paternidade voluntário e a respectiva averbação são isentos de custas cartorárias.',
+    ];
+    ?>
+    <section class="resource-section resource-panel" id="tabela-atos-rcpn" aria-labelledby="rcpn-table-title">
+        <div class="resource-heading">
+            <div>
+                <span class="resource-kicker">Tabela Base Oficial</span>
+                <h2 id="rcpn-table-title">Tabela de Emolumentos — Registro Civil das Pessoas Naturais (Tabela V TJAM)</h2>
+                <p>Valores oficiais para casamentos, certidões, averbações, retificações e demais atos do Registro Civil:</p>
+            </div>
+            <span class="specialty-badge">Tabela V — RCPN</span>
+        </div>
+        <div class="fees-table-wrap">
+            <table class="fees-table">
+                <thead>
+                    <tr>
+                        <th>Ato Registral ou Certidão</th>
+                        <th>Emolumento</th>
+                        <th>ISS (5%)</th>
+                        <th>Selo</th>
+                        <th>Total Oficial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rcpnActs as $act): ?>
+                        <tr>
+                            <?php foreach ($act as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <details class="checklist-card" style="margin-top: 22px;">
+            <summary>
+                <span><i class="fa-solid fa-scale-balanced"></i> Gratuidades Legais e Isenções do Registro Civil</span>
+                <i class="fa-solid fa-chevron-down checklist-arrow" aria-hidden="true"></i>
+            </summary>
+            <ul style="margin-top: 8px;">
+                <?php foreach ($gratuidades as $item): ?>
+                    <li><i class="fa-solid fa-check"></i> <?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </details>
+
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Tabela V aprovada pela Corregedoria-Geral de Justiça do TJAM. Assegurada a gratuidade dos atos previstos na legislação federal e estadual.</p>
     </section>
     <?php
 }

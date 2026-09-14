@@ -88,6 +88,7 @@ $rcpnDocuments = [
     </section>
 
     <?php renderEmolumentsSection('rcpn'); ?>
+    <?php renderRcpnFeesTable(); ?>
     <?php renderDocumentDownloads($rcpnDocuments); ?>
 
     <section class="service-cta" aria-label="Solicitar serviço de Registro Civil">
