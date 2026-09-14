@@ -481,7 +481,7 @@ function renderRcpnFeesTable(): void
             <span class="specialty-badge">Tabela V — RCPN</span>
         </div>
         <div class="fees-table-wrap">
-            <table class="fees-table">
+            <table class="fees-table fees-table-rcpn">
                 <thead>
                     <tr>
                         <th>Ato Registral ou Certidão</th>

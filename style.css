@@ -1522,7 +1522,10 @@ select.form-control option, select option {
   position: sticky;
   left: 0;
   z-index: 1;
-  min-width: 245px;
+  min-width: 260px;
+  max-width: 420px;
+  white-space: normal;
+  line-height: 1.45;
   background: #162d49;
   text-align: left;
 }
@@ -1532,8 +1535,29 @@ select.form-control option, select option {
   background: #203a59;
 }
 
+.fees-table tbody tr:nth-child(even):not(.table-group-header) td {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+.fees-table tbody tr:nth-child(even):not(.table-group-header) td:first-child {
+  background-color: #193352;
+}
+
 .fees-table tbody tr:hover td {
   background-color: rgba(230, 206, 129, 0.08);
+}
+
+.fees-table tbody tr:hover td:first-child {
+  background-color: #22436b;
+}
+
+.fees-table td:last-child {
+  font-weight: 700;
+  color: #fff;
+}
+
+.fees-table.fees-table-rcpn {
+  min-width: 720px;
 }
 
 .fees-table tr.table-group-header th,
