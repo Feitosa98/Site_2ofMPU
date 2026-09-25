@@ -16,6 +16,7 @@ function renderEmolumentsSection(string $specialty): void
             'description' => 'Registro de Títulos e Documentos e Registro Civil das Pessoas Jurídicas (Tabela Oficial de 2025, complementada pela Lei 8.212/2026).',
             'url' => 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/16207-tabela-de-emolumentos-atos-dos-oficios-de-registro-de-titulos-e-documentos-e-civil-das-pj-s-capital/file',
             'update' => true,
+            'update_url' => 'Tabela de Registro de Imóveis (novas faixas).pdf',
         ],
         'rcpn' => [
             'badge' => 'Tabela V (2025)',
@@ -66,7 +67,7 @@ function renderEmolumentsSection(string $specialty): void
                     <strong>Tabela Complementar de 2026 (Lei Estadual nº 8.212/2026)</strong>
                     <p>A Lei Estadual nº 8.212, de 28 de abril de 2026, <strong>complementa a Tabela Base de 2025</strong> acrescentando novas faixas para atos superiores a R$ 1.055.700,00. As duas tabelas operam em conjunto.</p>
                 </div>
-                <a href="<?= htmlspecialchars($update2026Url, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" class="btn-resource">
+                <a href="<?= htmlspecialchars($table['update_url'] ?? $update2026Url, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" class="btn-resource">
                     Consultar Lei 2026 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
@@ -295,20 +296,39 @@ function renderRtdpjUnifiedRanges(): void
     if ($rendered) return;
     $rendered = true;
 
-    $rows = [
-        ['R$ 0,01 a R$ 17.595,00', 'R$ 160,23', 'R$ 7,53', 'R$ 8,39', 'R$ 8,39', 'R$ 25,16', 'R$ 3,00', 'R$ 212,70'],
-        ['R$ 17.595,01 a R$ 35.190,00', 'R$ 480,68', 'R$ 7,53', 'R$ 24,41', 'R$ 24,41', 'R$ 73,23', 'R$ 3,00', 'R$ 613,26'],
-        ['R$ 35.190,01 a R$ 58.650,00', 'R$ 640,90', 'R$ 7,53', 'R$ 32,42', 'R$ 32,42', 'R$ 97,26', 'R$ 4,00', 'R$ 814,53'],
-        ['R$ 58.650,01 a R$ 117.300,00', 'R$ 801,13', 'R$ 7,53', 'R$ 40,43', 'R$ 40,43', 'R$ 121,30', 'R$ 4,00', 'R$ 1.014,82'],
-        ['R$ 117.300,01 a R$ 234.600,00', 'R$ 1.121,58', 'R$ 7,53', 'R$ 56,46', 'R$ 56,46', 'R$ 169,37', 'R$ 6,00', 'R$ 1.417,40'],
-        ['R$ 234.600,01 a R$ 351.900,00', 'R$ 2.803,94', 'R$ 7,53', 'R$ 140,57', 'R$ 140,57', 'R$ 421,72', 'R$ 7,00', 'R$ 3.521,33'],
-        ['R$ 351.900,01 a R$ 469.200,00', 'R$ 3.925,51', 'R$ 7,53', 'R$ 196,65', 'R$ 196,65', 'R$ 589,96', 'R$ 8,00', 'R$ 4.924,30'],
-        ['R$ 469.200,01 a R$ 586.500,00', 'R$ 5.047,09', 'R$ 7,53', 'R$ 252,73', 'R$ 252,73', 'R$ 758,19', 'R$ 8,00', 'R$ 6.326,27'],
-        ['R$ 586.500,01 a R$ 703.800,00', 'R$ 6.168,66', 'R$ 7,53', 'R$ 308,81', 'R$ 308,81', 'R$ 926,43', 'R$ 8,00', 'R$ 7.728,24'],
-        ['R$ 703.800,01 a R$ 821.100,00', 'R$ 7.290,25', 'R$ 7,53', 'R$ 364,89', 'R$ 364,89', 'R$ 1.094,67', 'R$ 10,00', 'R$ 9.132,23'],
-        ['R$ 821.100,01 a R$ 938.400,00', 'R$ 7.851,03', 'R$ 7,53', 'R$ 392,93', 'R$ 392,93', 'R$ 1.178,78', 'R$ 10,00', 'R$ 9.833,20'],
-        ['R$ 938.400,01 a R$ 1.055.700,00', 'R$ 8.411,83', 'R$ 7,53', 'R$ 420,97', 'R$ 420,97', 'R$ 1.262,90', 'R$ 10,00', 'R$ 10.534,20'],
-        ['Acima de R$ 1.055.700,00', 'R$ 11.215,77', 'R$ 7,53', 'R$ 561,17', 'R$ 561,17', 'R$ 1.683,50', 'R$ 10,00', 'R$ 14.039,14'],
+    $rows2025 = [
+        ['R$ 0,01 a R$ 17.595,00', 'R$ 160,23', 'R$ 8,39', 'R$ 8,39', 'R$ 25,16', 'R$ 3,00', 'R$ 7,53', 'R$ 212,70'],
+        ['R$ 17.595,01 a R$ 35.190,00', 'R$ 480,68', 'R$ 24,41', 'R$ 24,41', 'R$ 73,23', 'R$ 3,00', 'R$ 7,53', 'R$ 613,26'],
+        ['R$ 35.190,01 a R$ 58.650,00', 'R$ 640,90', 'R$ 32,42', 'R$ 32,42', 'R$ 97,26', 'R$ 4,00', 'R$ 7,53', 'R$ 814,53'],
+        ['R$ 58.650,01 a R$ 117.300,00', 'R$ 801,13', 'R$ 40,43', 'R$ 40,43', 'R$ 121,30', 'R$ 4,00', 'R$ 7,53', 'R$ 1.014,82'],
+        ['R$ 117.300,01 a R$ 234.600,00', 'R$ 1.121,58', 'R$ 56,46', 'R$ 56,46', 'R$ 169,37', 'R$ 6,00', 'R$ 7,53', 'R$ 1.417,40'],
+        ['R$ 234.600,01 a R$ 351.900,00', 'R$ 2.803,94', 'R$ 140,57', 'R$ 140,57', 'R$ 421,72', 'R$ 7,00', 'R$ 7,53', 'R$ 3.521,33'],
+        ['R$ 351.900,01 a R$ 469.200,00', 'R$ 3.925,51', 'R$ 196,65', 'R$ 196,65', 'R$ 589,96', 'R$ 8,00', 'R$ 7,53', 'R$ 4.924,30'],
+        ['R$ 469.200,01 a R$ 586.500,00', 'R$ 5.047,09', 'R$ 252,73', 'R$ 252,73', 'R$ 758,19', 'R$ 8,00', 'R$ 7,53', 'R$ 6.326,27'],
+        ['R$ 586.500,01 a R$ 703.800,00', 'R$ 6.168,66', 'R$ 308,81', 'R$ 308,81', 'R$ 926,43', 'R$ 8,00', 'R$ 7,53', 'R$ 7.728,24'],
+        ['R$ 703.800,01 a R$ 821.100,00', 'R$ 7.290,25', 'R$ 364,89', 'R$ 364,89', 'R$ 1.094,67', 'R$ 10,00', 'R$ 7,53', 'R$ 9.132,23'],
+        ['R$ 821.100,01 a R$ 938.400,00', 'R$ 7.851,03', 'R$ 392,93', 'R$ 392,93', 'R$ 1.178,78', 'R$ 10,00', 'R$ 7,53', 'R$ 9.833,20'],
+        ['R$ 938.400,01 a R$ 1.055.700,00', 'R$ 8.411,83', 'R$ 420,97', 'R$ 420,97', 'R$ 1.262,90', 'R$ 10,00', 'R$ 7,53', 'R$ 10.534,20'],
+    ];
+
+    $rows2026 = [
+        ['R$ 1.055.700,01 a R$ 4.055.700,00', 'R$ 13.649,09', 'R$ 682,45', 'R$ 1.364,91', 'R$ 2.047,36', 'R$ 20,00', 'R$ 10,00', 'R$ 17.773,81'],
+        ['R$ 4.055.700,01 a R$ 7.055.700,00', 'R$ 15.649,09', 'R$ 782,45', 'R$ 1.564,91', 'R$ 2.347,36', 'R$ 20,00', 'R$ 10,00', 'R$ 20.373,81'],
+        ['R$ 7.055.700,01 a R$ 10.055.700,00', 'R$ 17.649,09', 'R$ 882,45', 'R$ 1.764,91', 'R$ 2.647,36', 'R$ 20,00', 'R$ 10,00', 'R$ 22.973,81'],
+        ['R$ 10.055.700,01 a R$ 13.055.700,00', 'R$ 19.649,09', 'R$ 982,45', 'R$ 1.964,91', 'R$ 2.947,36', 'R$ 20,00', 'R$ 10,00', 'R$ 25.573,81'],
+        ['R$ 13.055.700,01 a R$ 16.055.700,00', 'R$ 21.649,09', 'R$ 1.082,45', 'R$ 2.164,91', 'R$ 3.247,36', 'R$ 20,00', 'R$ 10,00', 'R$ 28.173,81'],
+        ['R$ 16.055.700,01 a R$ 19.055.700,00', 'R$ 23.649,09', 'R$ 1.182,45', 'R$ 2.364,91', 'R$ 3.547,36', 'R$ 20,00', 'R$ 10,00', 'R$ 30.773,81'],
+        ['R$ 19.055.700,01 a R$ 22.055.700,00', 'R$ 25.649,09', 'R$ 1.282,45', 'R$ 2.564,91', 'R$ 3.847,36', 'R$ 20,00', 'R$ 10,00', 'R$ 33.373,81'],
+        ['R$ 22.055.700,01 a R$ 25.055.700,00', 'R$ 27.649,09', 'R$ 1.382,45', 'R$ 2.764,91', 'R$ 4.147,36', 'R$ 20,00', 'R$ 10,00', 'R$ 35.973,81'],
+        ['R$ 25.055.700,01 a R$ 28.055.700,00', 'R$ 29.649,09', 'R$ 1.482,45', 'R$ 2.964,91', 'R$ 4.447,36', 'R$ 20,00', 'R$ 10,00', 'R$ 38.573,81'],
+        ['R$ 28.055.700,01 a R$ 31.055.700,00', 'R$ 31.649,09', 'R$ 1.582,45', 'R$ 3.164,91', 'R$ 4.747,36', 'R$ 20,00', 'R$ 10,00', 'R$ 41.173,81'],
+        ['R$ 31.055.700,01 a R$ 34.055.700,00', 'R$ 33.649,09', 'R$ 1.682,45', 'R$ 3.364,91', 'R$ 5.047,36', 'R$ 20,00', 'R$ 10,00', 'R$ 43.773,81'],
+        ['R$ 34.055.700,01 a R$ 37.055.700,00', 'R$ 35.649,09', 'R$ 1.782,45', 'R$ 3.564,91', 'R$ 5.347,36', 'R$ 20,00', 'R$ 10,00', 'R$ 46.373,81'],
+        ['R$ 37.055.700,01 a R$ 40.055.700,00', 'R$ 37.649,09', 'R$ 1.882,45', 'R$ 3.764,91', 'R$ 5.647,36', 'R$ 20,00', 'R$ 10,00', 'R$ 48.973,81'],
+        ['R$ 40.055.700,01 a R$ 43.055.700,00', 'R$ 39.649,09', 'R$ 1.982,45', 'R$ 3.964,91', 'R$ 5.947,36', 'R$ 20,00', 'R$ 10,00', 'R$ 51.573,81'],
+        ['R$ 43.055.700,01 a R$ 46.055.700,00', 'R$ 41.649,09', 'R$ 2.082,45', 'R$ 4.164,91', 'R$ 6.247,36', 'R$ 20,00', 'R$ 10,00', 'R$ 54.173,81'],
+        ['R$ 46.055.700,01 a R$ 49.055.700,00', 'R$ 43.649,09', 'R$ 2.182,45', 'R$ 4.364,91', 'R$ 6.547,36', 'R$ 20,00', 'R$ 10,00', 'R$ 56.773,81'],
+        ['R$ 49.055.700,01 a R$ 50.000.000,00', 'R$ 45.649,09', 'R$ 2.282,45', 'R$ 4.564,91', 'R$ 6.847,36', 'R$ 20,00', 'R$ 10,00', 'R$ 59.373,81'],
     ];
 
     $notes = [
@@ -323,8 +343,8 @@ function renderRtdpjUnifiedRanges(): void
         <div class="resource-heading">
             <div>
                 <span class="resource-kicker">Tabela IV TJAM</span>
-                <h2 id="rtdpj-ranges-title">Registro com Valor Declarado — RTD (Tabela Base 2025/2026)</h2>
-                <p>Registro integral de contratos, títulos e documentos com valor declarado, qualquer que seja o número de páginas:</p>
+                <h2 id="rtdpj-ranges-title">Registro com Valor Declarado — RTD (2025/2026)</h2>
+                <p>Faixas da tabela base de 2025 e as 17 novas faixas incluídas pela Lei Estadual nº 8.212/2026.</p>
             </div>
             <span class="specialty-badge">Tabela IV — RTD</span>
         </div>
@@ -337,16 +357,25 @@ function renderRtdpjUnifiedRanges(): void
                     <tr>
                         <th>Faixa de valores do ato</th>
                         <th>Emolumento</th>
-                        <th>Computação</th>
                         <th>ISS (5%)</th>
-                        <th>Funjeam RCPN</th>
+                        <th>FIG-RCPN</th>
                         <th>Funjeam Extrajudicial</th>
                         <th>Selo</th>
+                        <th>Computação</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $row): ?>
+                    <tr class="table-group-header"><th colspan="8">Faixas da Tabela Base 2025</th></tr>
+                    <?php foreach ($rows2025 as $row): ?>
+                        <tr>
+                            <?php foreach ($row as $cell): ?>
+                                <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr class="table-group-header"><th colspan="8">Novas faixas — Lei Estadual nº 8.212/2026</th></tr>
+                    <?php foreach ($rows2026 as $row): ?>
                         <tr>
                             <?php foreach ($row as $cell): ?>
                                 <td><?= htmlspecialchars($cell, ENT_QUOTES, 'UTF-8') ?></td>
@@ -381,24 +410,25 @@ function renderRtdpjFixedActs(): void
     $rendered = true;
 
     $fixedActs = [
-        ['II.a - Registro integral sem valor declarado (até 1 lauda)', 'R$ 80,12', 'R$ 4,01', 'R$ 4,01', 'R$ 12,02', 'R$ 3,00', '—', 'R$ 103,16'],
-        ['II.b - Registro integral sem valor declarado (por lauda que acrescer)', 'R$ 32,05', 'R$ 1,60', 'R$ 1,60', 'R$ 4,81', 'R$ 0,00', '—', 'R$ 40,06'],
-        ['III.a - Registro resumido de contratos e títulos (até 1 lauda)', 'R$ 41,67', 'R$ 2,08', 'R$ 2,08', 'R$ 6,25', 'R$ 1,90', '—', 'R$ 53,98'],
-        ['III.b - Registro resumido de contratos e títulos (por lauda que acrescer)', 'R$ 20,83', 'R$ 1,04', 'R$ 1,04', 'R$ 3,12', 'R$ 0,00', '—', 'R$ 26,03'],
-        ['IV.a - Notificação extrajudicial na Zona Urbana (até 3 diligências)', 'R$ 72,11', 'R$ 3,61', 'R$ 3,61', 'R$ 10,82', 'R$ 3,00', '—', 'R$ 93,15'],
-        ['IV.b - Notificação extrajudicial fora da Zona Urbana (até 3 diligências)', 'R$ 128,18', 'R$ 6,41', 'R$ 6,41', 'R$ 19,23', 'R$ 3,00', '—', 'R$ 163,23'],
-        ['IV.c - Notificação extrajudicial (acima de 3 diligências, por ato praticado)', 'R$ 24,04', 'R$ 1,20', 'R$ 1,20', 'R$ 3,61', 'R$ 1,90', '—', 'R$ 31,95'],
+        ['II.a - Registro integral sem valor declarado (até 1 lauda)', 'R$ 153,11', 'R$ 7,66', 'R$ 15,31', 'R$ 22,97', 'R$ 3,00', '—', 'R$ 202,05'],
+        ['II.b - Registro integral sem valor declarado (por lauda que acrescer)', 'R$ 77,25', 'R$ 3,86', 'R$ 7,73', 'R$ 11,59', 'R$ 0,00', '—', 'R$ 100,43'],
+        ['III.a - Registro resumido de contratos e títulos (até 1 lauda)', 'R$ 84,43', 'R$ 4,22', 'R$ 8,44', 'R$ 12,66', 'R$ 3,00', '—', 'R$ 112,75'],
+        ['III.b - Registro resumido de contratos e títulos (por lauda que acrescer)', 'R$ 47,21', 'R$ 2,36', 'R$ 4,72', 'R$ 7,08', 'R$ 0,00', '—', 'R$ 61,37'],
+        ['IV.a - Notificação extrajudicial na Zona Urbana (até 3 diligências)', 'R$ 158,80', 'R$ 7,94', 'R$ 15,88', 'R$ 23,82', 'R$ 3,00', '—', 'R$ 209,44'],
+        ['IV.b - Notificação extrajudicial fora da Zona Urbana (até 3 diligências)', 'R$ 258,95', 'R$ 12,95', 'R$ 25,90', 'R$ 38,84', 'R$ 3,00', '—', 'R$ 339,64'],
+        ['IV.c - Notificação extrajudicial (acima de 3 diligências, por ato praticado)', 'R$ 62,94', 'R$ 3,15', 'R$ 6,29', 'R$ 9,44', 'R$ 2,00', '—', 'R$ 83,82'],
         ['V - Averbação de títulos ou documentos quando o ato tiver valor próprio', '—', '—', '—', '—', '—', '—', 'Metade do ato primitivo'],
-        ['VI.a - Inscrição de Pessoas Jurídicas (incluindo processo e arquivamento - até 1 lauda)', 'R$ 240,34', 'R$ 12,02', 'R$ 12,02', 'R$ 36,05', 'R$ 3,00', '—', 'R$ 303,43'],
-        ['VI.b - Inscrição de Pessoas Jurídicas (por lauda que acrescer)', 'R$ 24,04', 'R$ 1,20', 'R$ 1,20', 'R$ 3,61', 'R$ 0,00', '—', 'R$ 30,05'],
-        ['VII - Matrícula de oficina impressora, jornal e outros periódicos', 'R$ 256,36', 'R$ 12,82', 'R$ 12,82', 'R$ 38,45', 'R$ 3,00', '—', 'R$ 323,45'],
-        ['VIII.a - Certidão por peça reproduzida e/ou por folha', 'R$ 80,12', 'R$ 4,01', 'R$ 4,01', 'R$ 12,02', 'R$ 3,00', '—', 'R$ 103,16'],
-        ['VIII.b - Certidão negativa de pessoa jurídica ou de títulos e documentos', 'R$ 80,12', 'R$ 4,01', 'R$ 4,01', 'R$ 12,02', 'R$ 3,00', '—', 'R$ 103,16'],
-        ['IX - Cancelamento de registro (inclusive busca e certidão)', 'R$ 88,12', 'R$ 4,41', 'R$ 4,41', 'R$ 13,22', 'R$ 3,00', '—', 'R$ 113,16'],
-        ['X - Autenticação de livros contábeis obrigatórios das sociedades civis', 'R$ 62,49', 'R$ 3,12', 'R$ 3,12', 'R$ 9,37', 'R$ 3,00', '—', 'R$ 81,10'],
-        ['XI.a - Buscas em livros ou papéis arquivados (até dez anos)', 'R$ 20,83', 'R$ 1,04', 'R$ 1,04', 'R$ 3,12', 'R$ 1,90', '—', 'R$ 27,93'],
-        ['XI.b - Buscas em livros arquivados (acima de dez anos por ano, até máx R$ 230,78)', 'R$ 11,22', 'R$ 0,56', 'R$ 0,56', 'R$ 1,68', 'R$ 1,90', '—', 'R$ 15,92'],
-        ['XII - Apostilamento de Haia (RTD e RCPJ)', 'R$ 32,00', 'R$ 1,60', 'R$ 1,60', 'R$ 4,80', 'R$ 1,90', '—', 'R$ 41,90'],
+        ['VI.a - Inscrição de Pessoas Jurídicas (incluindo processo e arquivamento - até 1 lauda)', 'R$ 529,29', 'R$ 26,46', 'R$ 52,93', 'R$ 79,39', 'R$ 3,00', '—', 'R$ 691,07'],
+        ['VI.b - Inscrição de Pessoas Jurídicas (por lauda que acrescer)', 'R$ 62,94', 'R$ 3,15', 'R$ 6,29', 'R$ 9,44', 'R$ 0,00', '—', 'R$ 81,82'],
+        ['VII - Matrícula de oficina impressora, jornal e outros periódicos', 'R$ 557,54', 'R$ 27,88', 'R$ 55,75', 'R$ 83,63', 'R$ 3,00', '—', 'R$ 727,80'],
+        ['VIII.a - Certidão por peça reproduzida e/ou por folha', 'R$ 153,11', 'R$ 7,66', 'R$ 15,31', 'R$ 22,97', 'R$ 3,00', '—', 'R$ 202,05'],
+        ['VIII.b - Certidão negativa de pessoa jurídica ou de títulos e documentos', 'R$ 153,11', 'R$ 7,66', 'R$ 15,31', 'R$ 22,97', 'R$ 3,00', '—', 'R$ 202,05'],
+        ['VIII.c - SIDOC — Sistema de Informação de Documentos', 'R$ 81,56', 'R$ 4,08', 'R$ 8,16', 'R$ 12,23', 'R$ 3,00', 'R$ 81,56', 'R$ 190,59'],
+        ['IX - Cancelamento de registro (inclusive busca e certidão)', 'R$ 167,40', 'R$ 8,37', 'R$ 16,74', 'R$ 25,11', 'R$ 3,00', '—', 'R$ 220,62'],
+        ['X - Autenticação de livros contábeis obrigatórios das sociedades civis', 'R$ 121,62', 'R$ 6,08', 'R$ 12,16', 'R$ 18,24', 'R$ 3,00', '—', 'R$ 161,10'],
+        ['XI.a - Buscas em livros ou papéis arquivados (até dez anos)', 'R$ 57,21', 'R$ 2,86', 'R$ 5,72', 'R$ 8,58', 'R$ 2,00', '—', 'R$ 76,37'],
+        ['XI.b - Buscas em livros arquivados (acima de dez anos por ano, até máx. R$ 230,78)', 'R$ 30,04', 'R$ 1,50', 'R$ 3,00', 'R$ 4,51', 'R$ 2,00', '—', 'R$ 41,05'],
+        ['XII - Apostilamento de Haia (RTD e RCPJ)', 'R$ 57,15', 'R$ 2,86', 'R$ 5,72', 'R$ 8,57', 'R$ 3,00', '—', 'R$ 77,30'],
     ];
     ?>
     <section class="resource-section resource-panel" id="atos-fixos-rtdpj" aria-labelledby="rtdpj-fixed-title">
