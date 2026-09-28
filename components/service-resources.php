@@ -4,26 +4,31 @@ function renderEmolumentsSection(string $specialty): void
 {
     $tables = [
         'ri' => [
-            'badge' => 'Tabela II (2025)',
-            'title' => 'Registro de Imóveis — Tabela Base 2025',
-            'description' => 'Atos dos Oficiais de Registro de Imóveis com base na Tabela Oficial de 2025 (permanece vigente e é complementada pela Lei 8.212/2026).',
-            'url' => 'https://c0eefb8b-9ae0-4368-a636-a76df70f8076.filesusr.com/ugd/7a72e4_a25d1ddec8764236a3a899b79bbfbe47.pdf',
-            'update' => true,
+            'badge' => 'Tabela II — 2026',
+            'title' => 'Registro de Imóveis — Tabela Oficial Vigente',
+            'description' => 'Tabela II consolidada com as alterações da Lei Estadual nº 8.212/2026, incluindo as faixas de valores até R$ 50 milhões e as certidões eletrônicas.',
+            'url' => 'Tabela de Emolumentos 2026 - Lei 8.212.pdf',
+            'document_label' => 'Tabela de Emolumentos 2026 — Lei nº 8.212/2026',
+            'document_caption' => 'Documento oficial vigente publicado pelo TJAM',
+            'button_label' => 'Abrir Tabela Oficial 2026',
         ],
         'rtdpj' => [
-            'badge' => 'Tabela IV (2025)',
-            'title' => 'RTD e Registro Civil das Pessoas Jurídicas — Tabela Base 2025',
-            'description' => 'Registro de Títulos e Documentos e Registro Civil das Pessoas Jurídicas (Tabela Oficial de 2025, complementada pela Lei 8.212/2026).',
-            'url' => 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/16207-tabela-de-emolumentos-atos-dos-oficios-de-registro-de-titulos-e-documentos-e-civil-das-pj-s-capital/file',
-            'update' => true,
-            'update_url' => 'Tabela de Registro de Imóveis (novas faixas).pdf',
+            'badge' => 'Tabela IV — 2026',
+            'title' => 'RTD e Registro Civil das Pessoas Jurídicas — Tabela Oficial Vigente',
+            'description' => 'Tabela IV consolidada com as alterações da Lei Estadual nº 8.212/2026 para Registro de Títulos e Documentos e Registro Civil das Pessoas Jurídicas.',
+            'url' => 'Tabela de Emolumentos 2026 - Lei 8.212.pdf',
+            'document_label' => 'Tabela de Emolumentos 2026 — Lei nº 8.212/2026',
+            'document_caption' => 'Documento oficial vigente publicado pelo TJAM',
+            'button_label' => 'Abrir Tabela Oficial 2026',
         ],
         'rcpn' => [
-            'badge' => 'Tabela V (2025)',
-            'title' => 'Registro Civil das Pessoas Naturais — Tabela Base 2025',
-            'description' => 'Atos do Registro Civil das Pessoas Naturais (Tabela Oficial de 2025), incluindo casamento, averbações e certidões.',
+            'badge' => 'Tabela V — vigente',
+            'title' => 'Registro Civil das Pessoas Naturais — Tabela Oficial Vigente',
+            'description' => 'Tabela V aplicável aos atos do Registro Civil das Pessoas Naturais, incluindo casamento, averbações e certidões.',
             'url' => 'https://www.tjam.jus.br/index.php/ext-emolumentos/emolumentos-capital/16210-tabela-de-emolumentos-atos-dos-oficiais-de-registro-civil-das-pessoas-naturais-capital/file',
-            'update' => false,
+            'document_label' => 'Tabela V — Registro Civil das Pessoas Naturais',
+            'document_caption' => 'Documento oficial vigente do TJAM',
+            'button_label' => 'Abrir Tabela V Oficial',
         ],
     ];
 
@@ -32,7 +37,6 @@ function renderEmolumentsSection(string $specialty): void
     }
 
     $table = $tables[$specialty];
-    $update2026Url = 'https://www.tjam.jus.br/index.php/ext-emolumentos2/emolumentos-capital/63997-tabela-de-emolumentos-2026-lei-n-8-212-de-28-de-abril-de-2026/file';
     ?>
     <section class="resource-section resource-panel" aria-labelledby="emolumentos-title-<?= htmlspecialchars($specialty, ENT_QUOTES, 'UTF-8') ?>">
         <div class="resource-heading">
@@ -47,35 +51,23 @@ function renderEmolumentsSection(string $specialty): void
         <div class="fee-document">
             <div class="fee-document-heading">
                 <div>
-                    <strong><?= htmlspecialchars($table['badge'] . ' — Tabela Base 2025', ENT_QUOTES, 'UTF-8') ?></strong>
-                    <span>Documento oficial de 2025 (vigente como tabela principal)</span>
+                    <strong><?= htmlspecialchars($table['document_label'], ENT_QUOTES, 'UTF-8') ?></strong>
+                    <span><?= htmlspecialchars($table['document_caption'], ENT_QUOTES, 'UTF-8') ?></span>
                 </div>
                 <a class="btn-resource" href="<?= htmlspecialchars($table['url'], ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
-                    Abrir Tabela 2025 Oficial <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <?= htmlspecialchars($table['button_label'], ENT_QUOTES, 'UTF-8') ?> <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
             <details class="fee-preview-disclosure">
-                <summary><i class="fa-regular fa-file-pdf"></i> Visualizar tabela 2025 nesta página <i class="fa-solid fa-chevron-down"></i></summary>
+                <summary><i class="fa-regular fa-file-pdf"></i> Visualizar tabela oficial nesta página <i class="fa-solid fa-chevron-down"></i></summary>
                 <iframe class="fee-preview" src="<?= htmlspecialchars($table['url'], ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($table['badge'] . ' - ' . $table['title'], ENT_QUOTES, 'UTF-8') ?>" loading="lazy"></iframe>
             </details>
         </div>
 
-        <?php if ($table['update']): ?>
-            <div class="fee-update-card">
-                <div class="fee-update-icon" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></div>
-                <div>
-                    <strong>Tabela Complementar de 2026 (Lei Estadual nº 8.212/2026)</strong>
-                    <p>A Lei Estadual nº 8.212, de 28 de abril de 2026, <strong>complementa a Tabela Base de 2025</strong> acrescentando novas faixas para atos superiores a R$ 1.055.700,00. As duas tabelas operam em conjunto.</p>
-                </div>
-                <a href="<?= htmlspecialchars($table['update_url'] ?? $update2026Url, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" class="btn-resource">
-                    Consultar Lei 2026 <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
-            </div>
-        <?php endif; ?>
         <?php if ($specialty === 'ri'): ?>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
                 <a href="#tabela-unificada-ri" class="btn-resource"><i class="fa-solid fa-table-list"></i> Tabela Geral de Faixas (R$ 0,01 a R$ 50M)</a>
-                <a href="#atos-fixos-ri" class="btn-resource"><i class="fa-solid fa-list-check"></i> Demais Atos Fixos (Tabela 2025)</a>
+                <a href="#atos-fixos-ri" class="btn-resource"><i class="fa-solid fa-list-check"></i> Demais Atos Fixos</a>
             </div>
         <?php elseif ($specialty === 'rtdpj'): ?>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
@@ -87,7 +79,11 @@ function renderEmolumentsSection(string $specialty): void
                 <a href="#tabela-atos-rcpn" class="btn-resource"><i class="fa-solid fa-table-list"></i> Tabela Oficial de Atos do Registro Civil (RCPN)</a>
             </div>
         <?php endif; ?>
-        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Consulte a tabela correspondente à atribuição. Para atos de até R$ 1.055.700,00, aplica-se a Tabela de 2025; valores superiores utilizam o complemento de 2026.</p>
+        <?php if ($specialty === 'rcpn'): ?>
+            <p class="resource-note"><i class="fa-solid fa-circle-info"></i> A Lei Estadual nº 8.212/2026 alterou as Tabelas I a IV. Para o Registro Civil das Pessoas Naturais, permanece aplicável a Tabela V vigente.</p>
+        <?php else: ?>
+            <p class="resource-note"><i class="fa-solid fa-circle-info"></i> Valores vigentes conforme a Lei Estadual nº 8.212, de 28 de abril de 2026, com ISS de 5% aplicável em Manacapuru.</p>
+        <?php endif; ?>
     </section>
     <?php
 }
