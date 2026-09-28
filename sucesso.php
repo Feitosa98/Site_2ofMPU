@@ -194,7 +194,7 @@ $senha = (string)($resultado['senha'] ?? '');
             <nav>
                 <div class="logo">
                     <a href="index">
-                        <img src="images/logo.png" alt="Cartório 2º Ofício" style="height: 50px;">
+                        <img src="images/logo.png" alt="Cartório 2º Ofício" width="360" height="219" style="height: 50px; width: auto;">
                     </a>
                 </div>
                 <ul class="nav-links">

@@ -21,6 +21,11 @@ $base_url = "https://registromanacapuru.com.br";
     <meta property="og:image" content="<?= $base_url ?>/images/logo.png" />
     <meta property="og:type" content="website" />
 
+    <!-- LCP Preload (Homepage Hero Image) -->
+    <?php if ($is_home): ?>
+    <link rel="preload" as="image" href="images/Manacapuru.jpg">
+    <?php endif; ?>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +66,7 @@ $base_url = "https://registromanacapuru.com.br";
             <nav>
                 <div class="logo">
                     <a href="/">
-                        <img src="images/logo.png" alt="Cartório 2º Ofício Manacapuru" style="height: 60px;">
+                        <img src="images/logo.png" alt="Cartório 2º Ofício Manacapuru" width="360" height="219" style="height: 60px; width: auto;">
                     </a>
                 </div>
                 <ul class="nav-links">

@@ -90,7 +90,7 @@ include 'components/header.php';
                     <a href="#contato" class="btn btn-outline btn-white">Fale Conosco</a>
                 </div>
                 <div class="team-image-container">
-                    <img src="images/equipe.jpg" alt="Equipe do Cartório 2º Ofício" class="team-img">
+                    <img src="images/equipe.jpg" alt="Equipe do Cartório 2º Ofício" width="382" height="510" class="team-img">
                     <div class="team-overlay"></div>
                 </div>
             </div>
