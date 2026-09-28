@@ -135,10 +135,10 @@ function renderRiUnifiedRanges(): void
         <div class="resource-heading">
             <div>
                 <span class="resource-kicker">Tabela Unificada de Emolumentos</span>
-                <h2 id="unified-ri-ranges-title">Tabela Geral de Faixas de Valores — Registro de Imóveis (2025/2026)</h2>
-                <p>Tabela contínua de valores do Registro de Imóveis: integração das faixas base de 2025 (de R$ 0,01 até R$ 1.055.700,00) com as faixas complementares da Lei Estadual nº 8.212/2026 (acima de R$ 1.055.700,00 até R$ 50.000.000,00).</p>
+                <h2 id="unified-ri-ranges-title">Tabela Geral de Faixas de Valores — Registro de Imóveis (2026)</h2>
+                <p>Tabela contínua de valores do Registro de Imóveis: integração das faixas vigentes (de R$ 0,01 até R$ 1.055.700,00) com as faixas complementares da Lei Estadual nº 8.212/2026 (acima de R$ 1.055.700,00 até R$ 50.000.000,00).</p>
             </div>
-            <span class="specialty-badge">2025 + Lei 8.212/2026</span>
+            <span class="specialty-badge">Lei 8.212/2026</span>
         </div>
         <div class="mobile-table-hint">
             <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
@@ -160,8 +160,8 @@ function renderRiUnifiedRanges(): void
                 <tbody>
                     <tr class="table-group-header">
                         <th colspan="8">
-                            <i class="fa-solid fa-calendar-check"></i> Faixas da Tabela Base 2025 (Atos de R$ 0,01 até R$ 1.055.700,00)
-                            <span class="badge-table-tag badge-table-2025">Tabela Base 2025</span>
+                            <i class="fa-solid fa-calendar-check"></i> Faixas da Tabela Oficial 2026 (Atos de R$ 0,01 até R$ 1.055.700,00)
+                            <span class="badge-table-tag badge-table-2026">Tabela Oficial 2026</span>
                         </th>
                     </tr>
                     <?php foreach ($rows2025 as $row): ?>
@@ -188,7 +188,7 @@ function renderRiUnifiedRanges(): void
                 </tbody>
             </table>
         </div>
-        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados com base na Tabela Oficial de 2025. Atos com valores superiores aplicam o escalonamento instituído pela Lei Estadual nº 8.212/2026.</p>
+        <p class="resource-note"><i class="fa-solid fa-circle-info"></i> <strong>Aplicação conjunta:</strong> Atos de valor até R$ 1.055.700,00 são calculados com base na Tabela Oficial Vigente. Atos com valores superiores aplicam o escalonamento instituído pela Lei Estadual nº 8.212/2026.</p>
     </section>
     <?php
 }
@@ -235,10 +235,10 @@ function renderRiFixedActs(): void
         <div class="resource-heading">
             <div>
                 <span class="resource-kicker">Tabela Base Oficial</span>
-                <h2 id="atos-fixos-title">Demais Atos Fixos do Registro de Imóveis (Tabela Base 2025)</h2>
+                <h2 id="atos-fixos-title">Demais Atos Fixos do Registro de Imóveis (Tabela Oficial 2026)</h2>
                 <p>Valores oficiais para averbações sem valor declarado, loteamentos, certidões, convenções de condomínio, baixas e demais atos fixos (Tabela II TJAM — Itens II a XI):</p>
             </div>
-            <span class="specialty-badge">Atos Fixos 2025</span>
+            <span class="specialty-badge">Atos Fixos 2026</span>
         </div>
         <div class="mobile-table-hint">
             <i class="fa-solid fa-arrows-left-right"></i> Arraste para os lados para visualizar todas as colunas
@@ -339,8 +339,8 @@ function renderRtdpjUnifiedRanges(): void
         <div class="resource-heading">
             <div>
                 <span class="resource-kicker">Tabela IV TJAM</span>
-                <h2 id="rtdpj-ranges-title">Registro com Valor Declarado — RTD (2025/2026)</h2>
-                <p>Faixas da tabela base de 2025 e as 17 novas faixas incluídas pela Lei Estadual nº 8.212/2026.</p>
+                <h2 id="rtdpj-ranges-title">Registro com Valor Declarado — RTD (2026)</h2>
+                <p>Faixas vigentes e as 17 novas faixas incluídas pela Lei Estadual nº 8.212/2026.</p>
             </div>
             <span class="specialty-badge">Tabela IV — RTD</span>
         </div>
@@ -362,7 +362,7 @@ function renderRtdpjUnifiedRanges(): void
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-group-header"><th colspan="8">Faixas da Tabela Base 2025</th></tr>
+                    <tr class="table-group-header"><th colspan="8">Faixas da Tabela Oficial 2026</th></tr>
                     <?php foreach ($rows2025 as $row): ?>
                         <tr>
                             <?php foreach ($row as $cell): ?>
